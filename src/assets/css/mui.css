@@ -325,3 +325,48 @@ html {
 .m-button-danger:active {
     background-color: #DD6161;
 }
+
+
+/** 过渡动画 **/
+
+
+/** 垂直方向折叠 **/
+
+@keyframes fold-vertical-in {
+    to {
+        height: 0;
+    }
+}
+
+
+/** 水平方向折叠 **/
+
+@keyframes fold-horizontal-in {
+    to {
+        width: 0;
+    }
+}
+
+
+/** 淡入 **/
+
+@keyframes fade-in {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+
+/** 淡出 **/
+
+@keyframes fade-out {
+    form {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

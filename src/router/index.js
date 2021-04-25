@@ -22,7 +22,8 @@ const tabs = () =>
     import ('@/pages/tabs/index.vue');
 const verification = () =>
     import ('@/pages/verification/index.vue');
-
+const collapse = () =>
+    import ('@/pages/collapse/index.vue');
 const routes = [{
         path: '/',
         component: Layout
@@ -90,11 +91,25 @@ const routes = [{
         },
         component: verification
     },
-
+    {
+        path: '/collapse',
+        meta: {
+            title: '折叠面板'
+        },
+        component: collapse
+    },
 ];
 
 
-export default new VueRouter({
+const router = new VueRouter({
     routes,
     mode: 'hash'
 });
+
+
+router.beforeEach((to, form, next) => {
+    window.document.title = to.meta.title;
+    next();
+});
+
+export default router;

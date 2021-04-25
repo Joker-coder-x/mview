@@ -12,7 +12,8 @@
 			  <router-link to="/slots" tag="li">slots</router-link>
 			  <router-link to="/tabs" tag="li">tabs</router-link>
 			  <router-link to="/scratch-card" tag="li">scratch-card</router-link>
-			  <router-link to="/verification" tag="li">slots</router-link>
+			  <router-link to="/verification" tag="li">verification</router-link>
+			  <router-link to="/collapse" tag="li">collapse</router-link>
 		   </ul>
 	   </m-aside>
 	   <m-main><router-view></router-view></m-main>
