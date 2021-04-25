@@ -20,6 +20,8 @@
 
 <script>
 
+import MIcon from '../../icon/index.js';
+
 const arrowPositionList=['front','behind'];
 
 export default {
@@ -98,6 +100,10 @@ export default {
 
     mounted(){
         this.$parent.setActive();
+    },
+
+    components:{
+        MIcon
     }
 }
 </script>

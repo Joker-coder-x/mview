@@ -24,6 +24,9 @@ const verification = () =>
     import ('@/pages/verification/index.vue');
 const collapse = () =>
     import ('@/pages/collapse/index.vue');
+const rate = () =>
+    import ('@/pages/rate/index.vue');
+
 const routes = [{
         path: '/',
         component: Layout
@@ -97,6 +100,13 @@ const routes = [{
             title: '折叠面板'
         },
         component: collapse
+    },
+    {
+        path: '/rate',
+        meta: {
+            title: 'Rate评分'
+        },
+        component: rate
     },
 ];
 

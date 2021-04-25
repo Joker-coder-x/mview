@@ -98,9 +98,10 @@ export function ownKeys(obj) {
  * @param  {Object} obj 
  * @return {Array}
  * */
-export function hasOwnProperty(obj, prop) {
+export function has(obj, prop) {
     return Object.prototype.hasOwnProperty.call(obj, prop);
 }
+
 
 /**
  * @todo 防抖

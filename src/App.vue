@@ -2,7 +2,6 @@
   <div id="app">
 	 <m-container>
 	   <m-aside>
-		   
 		   <ul class="nav">   
 			  <router-link to="/button" tag="li">button</router-link>
 			  <router-link to="/checkbox" tag="li">checkbox</router-link>
@@ -14,6 +13,7 @@
 			  <router-link to="/scratch-card" tag="li">scratch-card</router-link>
 			  <router-link to="/verification" tag="li">verification</router-link>
 			  <router-link to="/collapse" tag="li">collapse</router-link>
+			  <router-link to="/rate" tag="li">Rate评分</router-link>
 		   </ul>
 	   </m-aside>
 	   <m-main><router-view></router-view></m-main>
