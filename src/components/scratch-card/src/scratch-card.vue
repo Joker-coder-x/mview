@@ -36,7 +36,7 @@ function drawPoint(context,x,y,brushSize=10){
 }
 
 export default {
-    name:'mScratchCard',
+    name:'MScratchCard',
 
     directives:{Draw},
 

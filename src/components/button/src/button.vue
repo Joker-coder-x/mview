@@ -19,7 +19,7 @@
 import mIcon from "../../icon/index.js";
 
 export default {
-    name:'mButton',
+    name:'MButton',
 
     props:{
         icon:{

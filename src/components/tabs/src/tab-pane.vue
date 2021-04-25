@@ -9,7 +9,7 @@
 
 <script>
 export default {
-    name:'mTabPane',
+    name:'MTabPane',
 
     props:{
         name:{

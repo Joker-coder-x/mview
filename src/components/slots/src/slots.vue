@@ -16,7 +16,7 @@
 import { genrateRunTimesSet } from './utils.js';
 
 export default {
-    name:'mSlots',
+    name:'MSlots',
 
     props:{
         //滑动速度
@@ -57,7 +57,7 @@ export default {
 
     methods:{
         getItems(){
-          return  this.$children.filter(item=>item.$options.name=='mSlotItem');
+          return  this.$children.filter(item=>item.$options.name=='MSlotsItem');
         },
 
         handleComplete(){

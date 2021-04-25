@@ -4,7 +4,7 @@
 
 <script>
 export default {
-    name:'mSlotsItemContent',
+    name:'MSlotsItemContent',
 
     props:{
         name:{

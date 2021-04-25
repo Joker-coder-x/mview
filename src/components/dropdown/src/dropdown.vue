@@ -22,7 +22,7 @@
 	const TRIGGER_MODE=['hover','click'];
 	
 	export default{
-		name:"mDropdown",
+		name:"MDropdown",
 		
 		directives:{Trigger},
 		

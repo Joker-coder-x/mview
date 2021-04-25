@@ -14,7 +14,7 @@
 	import mTriangle from "../../triangle/index.js";
 
 	export default {
-		name:"mDropdownMenu",
+		name:"MDropdownMenu",
 
 		reject:['dropdown'],
 		

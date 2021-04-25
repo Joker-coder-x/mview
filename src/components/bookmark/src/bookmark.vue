@@ -44,7 +44,7 @@ const positionList=[
 ];
 
 export default {
-    name:'mBookmark',
+    name:'MBookmark',
 
     props:{
 		//书签的类型

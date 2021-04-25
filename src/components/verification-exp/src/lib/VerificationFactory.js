@@ -374,7 +374,10 @@ class VerificionExp extends BaseVerification {
        this.$options.expPostfix=' = ?';
        this.$options.operatorConfig=['+','-','*','/'];
        this.$options.operatorCount=2;
-       this.$options.valueRange=10;
+       this.$options.valueRange={
+           min:1,
+           max:10
+       };
     }
 
     /**

@@ -14,7 +14,7 @@
 <script>
 	
 	export default {
-		name:'mCheckbox',
+		name:'MCheckbox',
 
 		model: {
 		    prop: 'checked',

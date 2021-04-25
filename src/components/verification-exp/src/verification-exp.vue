@@ -55,7 +55,7 @@ import mScratchCard from '../../scratch-card/index.js';
 const typeList=['exp','code'];
 
 export default {
-    name:'mVerificationExp',
+    name:'MVerificationExp',
 
     props:{
         canvasId:{

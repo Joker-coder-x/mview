@@ -80,7 +80,7 @@
 	
 	
 	export default {
-		name:"mTriangle",
+		name:"MTriangle",
 		
 		props:{
 			size:{

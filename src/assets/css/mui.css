@@ -1,238 +1,327 @@
 @import url("./icon.css");
+:root {
+    /** 白色 **/
+    --white: #ffffff;
+    /** 黑色 **/
+    --black: #000000;
+    /** 波斯菊 **/
+    --calliopsis: #ffc5cb;
+    /** 橘红 **/
+    --orenge-red: #d35400;
+    /** 深红 **/
+    --deep-red: #c0392b;
+    /** 浅灰蓝 **/
+    --light-blue: #88e6f0;
+    /** 天蓝 **/
+    --blue: #3498db;
+    /** 深蓝 **/
+    --deep-blue: #2980b9;
+    /** 普蓝 **/
+    --common-blue: #032d62;
+    /** 橘色 **/
+    --orange: #f39c12;
+    /** 灰色 **/
+    --gray: #bdc3c7;
+    /** 浅草绿 **/
+    --green: #2ecc71;
+    /** 浅蓝绿 **/
+    --light-blue-green: #1abc9c;
+    /** 蓝绿 **/
+    --blue-green: #16a085;
+    /** 黄绿 **/
+    --yellow-green: #7fc830;
+    /** 草绿 **/
+    --deep-green: #27ae60;
+    /**土黄 **/
+    --rhubarb: #f1c40f;
+    /** 紫罗兰 **/
+    --pink: #9b59b6;
+    /** 深紫 **/
+    --deep-pink: #8e44ad;
+    /** 暗灰 **/
+    --dark-gray: #2c3e50;
+    /** 亮灰 **/
+    --light-gray: #ecf0f1;
+    --default: #fff;
+    --primary: #409eff;
+    --success: #67c23a;
+    --info: #909399;
+    --warning: #e6a23c;
+    --danger: #f56c6c;
+    --text: #5c6161;
+}
 
-:root{
-	/** 白色 **/
-	--white:#ffffff;
-	/** 黑色 **/
-	--black:#000000;
-	/** 波斯菊 **/
-	--calliopsis:#ffc5cb;
-	/** 橘红 **/
-	--orenge-red:#d35400;
-	/** 深红 **/
-	--deep-red:#c0392b;
-	/** 浅灰蓝 **/
-	--light-blue:#88e6f0;
-	/** 天蓝 **/
-	--blue:#3498db;
-	/** 深蓝 **/
-	--deep-blue:#2980b9;
-	/** 普蓝 **/
-	--common-blue:#032d62;
-	/** 橘色 **/
-	--orange:#f39c12;
-	/** 灰色 **/
-	--gray:#bdc3c7;
-	/** 浅草绿 **/
-	--green:#2ecc71;
-	/** 浅蓝绿 **/
-	--light-blue-green:#1abc9c;
-	/** 蓝绿 **/
-	--blue-green:#16a085;
-	/** 黄绿 **/
-	--yellow-green:#7fc830;
-	/** 草绿 **/
-	--deep-green:#27ae60;
-	/**土黄 **/
-	--rhubarb:#f1c40f;
-	/** 紫罗兰 **/
-	--pink:#9b59b6;
-	/** 深紫 **/
-	--deep-pink:#8e44ad;
-	/** 暗灰 **/
-	--dark-gray:#2c3e50;
-	/** 亮灰 **/
-	--light-gray:#ecf0f1;
-	--default:#fff;
-	--primary:#409eff;
-	--success:#67c23a;
-	--info:#909399;
-	--warning:#e6a23c;
-	--danger:#f56c6c;
-	--text:#5c6161;
+html {
+    font-size: 62.5%;
 }
 
 
-html{
-	font-size:62.5% ;
+/** 常用颜色类型定义 **/
+
+
+/** 普通状态下的颜色 **/
+
+.blue,
+.m-blue {
+    background: var(--blue);
+    color: white;
 }
 
-.blue{
-	background: var(--blue);
-	color: white;
+.default,
+.m-default {
+    background-color: var(--default);
+    color: var(--text);
 }
 
-.default{
-	background-color: var(--default);
-	color: var(--text);
+.primary,
+.m-primary {
+    background-color: var(--primary);
+    color: white;
+}
+
+.success,
+.m-success {
+    background-color: var(--success);
+    color: white;
+}
+
+.info,
+.m-info {
+    background-color: var(--info);
+    color: white;
+}
+
+.warning,
+.m-warning {
+    background-color: var(--warning);
+    color: white;
+}
+
+.danger,
+.m-danger {
+    background-color: var(--danger);
+    color: white;
 }
 
 
-.primary{
-	background-color: var(--primary);
-	color: white;
+/** hover状态下的颜色 **/
+
+.default:hover,
+.m-default:hover {
+    color: var(--blue);
+    background-color: #ECF5FF;
 }
 
-.success{
-	background-color: var(--success);
-	color: white;
+.primary:hover,
+.m-primary:hover {
+    background-color: #66B1FF;
 }
 
-.info{
-	background-color: var(--info);
-	color: white;
+.success:hover,
+.m-success:hover {
+    background: #85CE61;
 }
 
-.warning{
-	background-color: var(--warning);
-	color: white;
+.info:hover,
+.m-info:hover {
+    background-color: #A6A9AD;
 }
 
-.danger{
-	background-color: var(--danger);
-	color: white;
+.warning:hover,
+.m-warning:hover {
+    background-color: #EBB563;
+}
+
+.danger:hover,
+.m-danger:hover {
+    background-color: #F78989;
+}
+
+
+/** active状态下的颜色 **/
+
+.primary:active,
+.m-primary:active {
+    background: #3A8EE6;
+}
+
+.success:active,
+.m-success:active {
+    background: #5DAF34;
+}
+
+.info:active,
+.m-info:active {
+    background-color: #909399;
+}
+
+.warning:active,
+.m-warning:active {
+    background-color: #CF9236;
+}
+
+.danger:active,
+.m-danger:active {
+    background-color: #DD6161;
+}
+
+
+/**禁止元素内部内容被选中*/
+
+.unselect {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -ms-user-select: none;
+    /* 以下两个属性目前并未支持，写在这里为了减少风险 */
+    -o-user-select: none;
+    user-select: none;
 }
 
 
 /**
  *	button部分
  */
-.m-button{
-	outline: none;
-	border:1px solid #ddd;
-	padding: 1rem 2rem;
-	transition: .1s;
-	cursor: pointer;
-	line-height: 1;
-	white-space: nowrap;
-	color: 606266;
-	text-align: center;
-	font-weight: 500;
-	font-size: 1.4rem;
-	box-sizing: border-box;
-	margin: 0;
-	border-radius: 4px;
+
+.m-button {
+    outline: none;
+    border: 1px solid #ddd;
+    padding: 1rem 2rem;
+    transition: .1s;
+    cursor: pointer;
+    line-height: 1;
+    white-space: nowrap;
+    color: 606266;
+    text-align: center;
+    font-weight: 500;
+    font-size: 1.4rem;
+    box-sizing: border-box;
+    margin: 0;
+    border-radius: 4px;
 }
+
 
 /************** button形状 *****************/
-.m-button.circle{
-	border-radius: 50%;
-	padding: 12px;
+
+.m-button.circle {
+    border-radius: 50%;
+    padding: 12px;
 }
 
-.m-button.round{
-	border-radius: 20px;
+.m-button.round {
+    border-radius: 20px;
 }
+
 
 /************** button大小 *****************/
-.m-button--default{
-	padding: 1rem 2rem;
-	font-size: 1.4rem;
+
+.m-button--default {
+    padding: 1rem 2rem;
+    font-size: 1.4rem;
 }
 
-.m-button--huge{
-	padding: 3rem 6rem;
-	font-size: 3rem;
+.m-button--huge {
+    padding: 3rem 6rem;
+    font-size: 3rem;
 }
 
-.m-button--large{
-	padding:2rem 4rem ;
-	font-size: 2rem;
+.m-button--large {
+    padding: 2rem 4rem;
+    font-size: 2rem;
 }
 
-.m-button--medium{
-	padding: .7rem 1.5rem;
-	font-size: 1.1rem;
+.m-button--medium {
+    padding: .7rem 1.5rem;
+    font-size: 1.1rem;
 }
 
-.m-button--small{
-	padding: .5rem 1rem;
-	font-size: .9rem;
+.m-button--small {
+    padding: .5rem 1rem;
+    font-size: .9rem;
 }
 
-.m-button--mini{
-	padding: .4rem .6rem;
-	font-size: .7rem;
+.m-button--mini {
+    padding: .4rem .6rem;
+    font-size: .7rem;
 }
 
-.m-button-default{
-	color: var(--text);
-	background-color: white;
-	border:1px solid #bbb;
+.m-button-default {
+    color: var(--text);
+    background-color: white;
+    border: 1px solid #bbb;
 }
 
-.m-button-default:hover{
-	color: var(--blue);
-	background-color: #ECF5FF;
+.m-button-default:hover {
+    color: var(--blue);
+    background-color: #ECF5FF;
 }
 
-.m-button-default:active{
-	border:1px solid var(--deep-blue);
+.m-button-default:active {
+    border: 1px solid var(--deep-blue);
 }
 
-.m-button-primary{
-	color: var(--white);
-	background-color: var(--primary);
-
+.m-button-primary {
+    color: var(--white);
+    background-color: var(--primary);
 }
 
-.m-button-primary:hover{
-	color: white;
-	background-color: #66B1FF;
+.m-button-primary:hover {
+    color: white;
+    background-color: #66B1FF;
 }
 
-.m-button-primary:active{
-	background: #3A8EE6;
+.m-button-primary:active {
+    background: #3A8EE6;
 }
 
-.m-button-success{
-	color: var(--white);
-	background: var(--success);
+.m-button-success {
+    color: var(--white);
+    background: var(--success);
 }
 
-.m-button-success:hover{
-	background: #85CE61;
+.m-button-success:hover {
+    background: #85CE61;
 }
 
-.m-button-success:active{
-	background: #5DAF34;
+.m-button-success:active {
+    background: #5DAF34;
 }
 
-.m-button-info{
-	color: var(--white);
-	background-color: var(--info);
+.m-button-info {
+    color: var(--white);
+    background-color: var(--info);
 }
 
-.m-button-info:hover{
-	background-color: #A6A9AD;
+.m-button-info:hover {
+    background-color: #A6A9AD;
 }
 
-.m-button-info:active{
-	background-color: #909399;
+.m-button-info:active {
+    background-color: #909399;
 }
 
-.m-button-warning{
-	background-color: var(--warning);
-	color: white;
+.m-button-warning {
+    background-color: var(--warning);
+    color: white;
 }
 
-.m-button-warning:hover{
-	background-color: #EBB563;
+.m-button-warning:hover {
+    background-color: #EBB563;
 }
 
-.m-button-warning:active{
-   background-color: #CF9236;
+.m-button-warning:active {
+    background-color: #CF9236;
 }
 
-.m-button-danger{
-	color: var(--white);
-	background-color: var(--danger);
+.m-button-danger {
+    color: var(--white);
+    background-color: var(--danger);
 }
 
-.m-button-danger:hover{
-	background-color: #F78989;
+.m-button-danger:hover {
+    background-color: #F78989;
 }
 
-.m-button-danger:active{
-	background-color: #DD6161;
+.m-button-danger:active {
+    background-color: #DD6161;
 }

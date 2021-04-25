@@ -4,7 +4,7 @@
 
 <script>
 	export default {
-		name:"mDropdownItem",
+		name:"MDropdownItem",
 		
 		inject:['dropdown','menuItemClickCallMethodName'],
 		

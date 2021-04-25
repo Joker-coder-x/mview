@@ -15,7 +15,7 @@ import {
 } from './utils.js';
 
 export default {
-    name:'mSlotItem',
+    name:'MSlotsItem',
 
     inject:['slotsRef'],
 
@@ -37,7 +37,7 @@ export default {
     methods:{   
          //获取所有content-child
          getContentChild(){
-             return this.$children.filter(c=>c.$options.name==='mSlotsItemContent');
+             return this.$children.filter(c=>c.$options.name==='MSlotsItemContent');
          },
          
          //设置移动次数

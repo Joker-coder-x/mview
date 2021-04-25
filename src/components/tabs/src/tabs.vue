@@ -29,7 +29,7 @@
 import mButton from "../../button/index.js";
 export default {
   
-    name:'mTabs',
+    name:'MTabs',
 
     model:{
         prop:'value',
@@ -60,7 +60,7 @@ export default {
     methods:{
         //遍历子组件 获得所有m-tab-pane组件
         getTabs(){
-            return this.$children.filter((item)=>item.$options.name==='mTabPane');
+            return this.$children.filter((item)=>item.$options.name==='MTabPane');
         },
 
         //动态获取tabBarItem的class
