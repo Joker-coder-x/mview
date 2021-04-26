@@ -21,7 +21,6 @@ requireComponent.keys().forEach(fileName => {
     // 获取组件配置
     const componentConfig = requireComponent(fileName);
 
-
     if (componentConfig.default.name) {
         Vue.use(componentConfig.default);
     }

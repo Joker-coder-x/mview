@@ -1,3 +1,5 @@
+import { deleteProp } from '@/utils/index.js';
+
 //添加outside指令绑定
 const bindClickOutSide = function(el, binding) {
     //点击el元素外层满足条件
