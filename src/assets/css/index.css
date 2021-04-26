@@ -1,4 +1,5 @@
 @import url("./icon.css");
+@import url("./animation.css");
 :root {
     /** 白色 **/
     --white: #ffffff;
@@ -42,12 +43,19 @@
     --dark-gray: #2c3e50;
     /** 亮灰 **/
     --light-gray: #ecf0f1;
+    /** 默认 **/
     --default: #fff;
+    /** 主要 **/
     --primary: #409eff;
+    /** 成功 **/
     --success: #67c23a;
+    /** 信息 **/
     --info: #909399;
+    /** 警告 **/
     --warning: #e6a23c;
+    /** 危险 **/
     --danger: #f56c6c;
+    /** 文本 **/
     --text: #5c6161;
 }
 
@@ -324,49 +332,4 @@ html {
 
 .m-button-danger:active {
     background-color: #DD6161;
-}
-
-
-/** 过渡动画 **/
-
-
-/** 垂直方向折叠 **/
-
-@keyframes fold-vertical-in {
-    to {
-        height: 0;
-    }
-}
-
-
-/** 水平方向折叠 **/
-
-@keyframes fold-horizontal-in {
-    to {
-        width: 0;
-    }
-}
-
-
-/** 淡入 **/
-
-@keyframes fade-in {
-    from {
-        opacity: 1;
-    }
-    to {
-        opacity: 0;
-    }
-}
-
-
-/** 淡出 **/
-
-@keyframes fade-out {
-    form {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
 }

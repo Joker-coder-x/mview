@@ -2,22 +2,22 @@
  * @todo 获取页面视口大小
  * @returns { {width:Number,height:Number} }
  */
-export function getViewportSize(){
-    let pageWidth  =  window.innerWidth,
-        pageHeight =  window.innerHeight;
-    if(typeof pageWidth!=='number'){
-        if(document.compatMode=='CSS1Compat'){
-            pageWidth  =  document.documentElement.clientWidth;
-            pageHeight =  document.documentElement.clientHeight;
-        }else{
-            pageWidth  =  document.body.clientWidth;
-            pageHeight =  document.body.clientHeight;
+export function getViewportSize() {
+    let pageWidth = window.innerWidth,
+        pageHeight = window.innerHeight;
+    if (typeof pageWidth !== 'number') {
+        if (document.compatMode == 'CSS1Compat') {
+            pageWidth = document.documentElement.clientWidth;
+            pageHeight = document.documentElement.clientHeight;
+        } else {
+            pageWidth = document.body.clientWidth;
+            pageHeight = document.body.clientHeight;
         }
     }
 
     return {
-        width:pageWidth,
-        height:pageHeight
+        width: pageWidth,
+        height: pageHeight
     }
 }
 
@@ -25,7 +25,7 @@ export function getViewportSize(){
  * @todo 获取页面视口宽度
  * @returns {Number }
  */
-export function getViewportWidth(){
+export function getViewportWidth() {
     return getViewportSize().width;
 }
 
@@ -33,7 +33,7 @@ export function getViewportWidth(){
  * @todo 获取页面视口高度
  * @returns { Number }
  */
-export function getViewportHeight(){
+export function getViewportHeight() {
     return getViewportSize().height;
 }
 
@@ -42,13 +42,13 @@ export function getViewportHeight(){
  * @param {HTMLElement} el 
  * @returns {Number}
  */
-export function getToDocumentTopOffset(el){
-    let offset   =  el.offsetTop,
-        current  =  el.offsetParent;
-    
-    while(current){
-        offset  +=  current.offsetTop;
-        current  =  current.offsetParent;
+export function getToDocumentTopOffset(el) {
+    let offset = el.offsetTop,
+        current = el.offsetParent;
+
+    while (current) {
+        offset += current.offsetTop;
+        current = current.offsetParent;
     }
 
     return offset;
@@ -59,13 +59,13 @@ export function getToDocumentTopOffset(el){
  * @param {HTMLElement} el 
  * @returns {Number}
  */
-export function getElementToDocumentLeftOffset(el){
-    let offset  =  el.offsetLeft,
-        current =  el.offsetParent;
+export function getElementToDocumentLeftOffset(el) {
+    let offset = el.offsetLeft,
+        current = el.offsetParent;
 
-    while(current){
-        offset  +=  current.offsetLeft;
-        current  =  current.offsetParent;
+    while (current) {
+        offset += current.offsetLeft;
+        current = current.offsetParent;
     }
 
     return offset;
@@ -76,10 +76,10 @@ export function getElementToDocumentLeftOffset(el){
  * @param {HTMLElement} el 
  * @returns {Number}
  */
-export function getElementToDocumentBottomOffset(el){
-    const documentHeight=document.documentElement.scrollHeight,
-          topOffset=getToDocumentTopOffset(el);
-    return documentHeight-(topOffset+el.offsetHeight);
+export function getElementToDocumentBottomOffset(el) {
+    const documentHeight = document.documentElement.scrollHeight,
+        topOffset = getToDocumentTopOffset(el);
+    return documentHeight - (topOffset + el.offsetHeight);
 }
 
 /**
@@ -87,8 +87,8 @@ export function getElementToDocumentBottomOffset(el){
  * @param {HTMLElement} el 
  * @return {Number}
  */
-export function getElementToViewportBottomOffset(el){
-    return  getViewportHeight()-el.getBoundingClientRect().bottom;
+export function getElementToViewportBottomOffset(el) {
+    return getViewportHeight() - el.getBoundingClientRect().bottom;
 }
 
 /**
@@ -96,16 +96,16 @@ export function getElementToViewportBottomOffset(el){
  * @param {HTMLElement} el 
  * @return {Number}
  */
- export function getElementToViewportRightOffset(el){
-    return getViewportWidth()-el.getBoundingClientRect().right;
+export function getElementToViewportRightOffset(el) {
+    return getViewportWidth() - el.getBoundingClientRect().right;
 }
 
 /**
  * @todo 获取元素距离页面视口底部的距离（偏移） （不包含元素本身的高度）
  * @param {HTMLElement} el 
-    * @return {Number}
+ * @return {Number}
  */
-export function getElementToViewportTopOffset(el){
+export function getElementToViewportTopOffset(el) {
     return el.getBoundingClientRect().top;
 }
 
@@ -114,6 +114,53 @@ export function getElementToViewportTopOffset(el){
  * @param {HTMLElement} el 
  * @return {Number}
  */
-export function getElementToViewportLeftOffset(el){
+export function getElementToViewportLeftOffset(el) {
     return el.getBoundingClientRect().left;
+}
+
+/**
+ * 获取鼠标指针位于某个元素中的相对坐标
+ * @param {HTMLElement} el 
+ * @param {Object} clientPos  鼠标指针位于浏览器视口的坐标
+ * @returns {{x,y}} 
+ */
+export function getMousePosInElPos(el, clientPos) {
+    return {
+        x: clientPos.x - el.getBoundingClientRect().left,
+        y: clientPos.y - el.getBoundingClientRect().top
+    }
+}
+
+/**
+ * 获取鼠标指针位于某个元素中的相对宽高比例
+ * @param {HTMLElement} el 
+ * @param {Object} clientPos  鼠标指针位于浏览器视口的坐标
+ * @returns {{widthRate,heightRate}} 
+ */
+export function getMousePosElRate(el, clientPos) {
+    const pos = getMousePosInElPos(el, clientPos);
+    return {
+        widthRate: pos.x / el.offsetWidth,
+        heightRate: pos.y / el.offsetHeight
+    }
+}
+
+/**
+ * 获取鼠标指针位于某个元素中的相对宽度比例
+ * @param {HTMLElement} el 
+ * @param {Object} clientPos  鼠标指针位于浏览器视口的坐标
+ * @returns {{widthRate,heightRate}} 
+ */
+export function getMousePosElWidthRate(el, clientPos) {
+    return getMousePosElRate(el, clientPos).widthRate;
+}
+
+/**
+ * 获取鼠标指针位于某个元素中的相对高度比例
+ * @param {HTMLElement} el 
+ * @param {Object} clientPos  鼠标指针位于浏览器视口的坐标
+ * @returns {{widthRate,heightRate}} 
+ */
+export function getMousePosElHeightRate(el, clientPos) {
+    return getMousePosElRate(el, clientPos).heightRate;
 }

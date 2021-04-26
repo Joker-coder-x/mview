@@ -1,5 +1,5 @@
 export * from "./date.js";
-
+export * from './dom.js';
 
 /**
  * @todo 生成完善的类型检测函数

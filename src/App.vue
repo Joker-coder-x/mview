@@ -28,7 +28,7 @@ export default {
 </script>
 
 <style>
-@import url("assets/css/mui.css");
+@import url("assets/css/index.css");
 
 body{
 	padding:2rem ;

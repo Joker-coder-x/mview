@@ -7,7 +7,9 @@
     font-display: block;
 }
 
+.mIcon,
 [class^="mIcon-"],
+[class*="mIcon"],
 [class*=" mIcon-"] {
     /* use !important to prevent issues with browser extensions that change fonts */
     font-family: 'icomoon' !important;

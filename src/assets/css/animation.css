@@ -1,0 +1,61 @@
+/** 过渡动画 **/
+
+
+/** 垂直方向折叠 **/
+
+@keyframes fold-vertical-in {
+    to {
+        height: 0;
+    }
+}
+
+@keyframes fold-vertical-out {
+    form {
+        height: 0;
+    }
+    to {
+        height: auto;
+    }
+}
+
+
+/** 水平方向折叠 **/
+
+@keyframes fold-horizontal-in {
+    to {
+        width: 0;
+    }
+}
+
+@keyframes fold-horizontal-out {
+    from {
+        width: 0;
+    }
+    to {
+        width: auto;
+    }
+}
+
+
+/** 淡入 **/
+
+@keyframes fade-in {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+
+/** 淡出 **/
+
+@keyframes fade-out {
+    form {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

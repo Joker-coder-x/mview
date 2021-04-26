@@ -9,7 +9,7 @@
 		inject:['dropdown','menuItemClickCallMethodName'],
 		
 		props:{
-			commond:String|Number,
+			commond:[String,Number],
 		},
 		
 		methods:{

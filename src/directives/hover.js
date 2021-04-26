@@ -7,13 +7,25 @@ const bindHover = function(el, binding) {
     const handleMouseEnter = function(e) {
         if (binding.value.disabled) return;
         if (binding.expression) {
-            binding.value.enter({ e, value: binding.value });
+            if (binding.value) {
+                if (typeof binding.value === 'function') {
+                    binding.value({ e, value: binding.value })
+                } else {
+                    binding.value.enter && typeof binding.value.enter === 'function' && binding.value.enter({ e, value: binding.value });
+                }
+            }
         }
     }
     const handleMouseLeave = function(e) {
         if (binding.value.disabled) return;
         if (binding.expression) {
-            binding.value.leave({ e, value: binding.value });
+            if (binding.value) {
+                if (typeof binding.value === 'function') {
+                    binding.value({ e, value: binding.value });
+                } else {
+                    binding.value.leave && typeof binding.value.leave === 'function' && binding.value.leave({ e, value: binding.value });
+                }
+            }
         }
     }
 
