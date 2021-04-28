@@ -14,6 +14,7 @@
 			  <router-link to="/verification" tag="li">verification</router-link>
 			  <router-link to="/collapse" tag="li">collapse</router-link>
 			  <router-link to="/rate" tag="li">Rate评分</router-link>
+			  <router-link to="/switch" tag="li">Switch开关</router-link>
 		   </ul>
 	   </m-aside>
 	   <m-main><router-view></router-view></m-main>
@@ -34,6 +35,10 @@ body{
 	padding:2rem ;
 	margin: 0px;
 }
+
+/* body:hover{
+	cursor: url("assets/css/ico/disabled.ico"),auto;
+} */
 
 .nav{
 	list-style: none;

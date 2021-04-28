@@ -1,19 +1,22 @@
 {
-  "name": "default",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build"
-  },
-  "dependencies": {
-    "core-js": "^2.6.5",
-    "vue": "^2.6.10",
-    "vue-router": "^3.5.1"
-  },
-  "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.8.0",
-    "@vue/cli-service": "^3.8.0",
-    "vue-template-compiler": "^2.6.10"
-  }
+    "name": "default",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "serve": "vue-cli-service serve --open",
+        "build": "vue-cli-service build",
+        "inspect": "vue-cli-service inspect"
+    },
+    "dependencies": {
+        "core-js": "^2.6.5",
+        "less": "^4.1.1",
+        "vue": "^2.6.10",
+        "vue-router": "^3.5.1"
+    },
+    "devDependencies": {
+        "@vue/cli-plugin-babel": "^3.8.0",
+        "@vue/cli-service": "^3.8.0",
+        "less-loader": "^7.3.0",
+        "vue-template-compiler": "^2.6.10"
+    }
 }

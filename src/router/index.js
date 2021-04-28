@@ -6,26 +6,28 @@ Vue.use(VueRouter);
 
 const Layout = () =>
     import ('@/pages/layout/index.vue');
-const button = () =>
+const Button = () =>
     import ('@/pages/button/index.vue');
-const bookmark = () =>
+const Bookmark = () =>
     import ('@/pages/bookmark/index.vue');
-const checkbox = () =>
+const Checkbox = () =>
     import ('@/pages/checkbox/index.vue');
-const dropdown = () =>
+const Dropdown = () =>
     import ('@/pages/dropdown/index.vue');
-const scratchCard = () =>
+const ScratchCard = () =>
     import ('@/pages/scratch-card/index.vue');
-const slots = () =>
+const Slots = () =>
     import ('@/pages/slots/index.vue');
-const tabs = () =>
+const Tabs = () =>
     import ('@/pages/tabs/index.vue');
-const verification = () =>
+const Verification = () =>
     import ('@/pages/verification/index.vue');
-const collapse = () =>
+const Collapse = () =>
     import ('@/pages/collapse/index.vue');
-const rate = () =>
+const Rate = () =>
     import ('@/pages/rate/index.vue');
+const Switch = () =>
+    import ('@/pages/switch/index.vue');
 
 const routes = [{
         path: '/',
@@ -43,70 +45,77 @@ const routes = [{
         meta: {
             title: '按钮'
         },
-        component: button
+        component: Button
     },
     {
         path: '/bookmark',
         meta: {
             title: '书签'
         },
-        component: bookmark
+        component: Bookmark
     },
     {
         path: '/checkbox',
         meta: {
             title: '复选框'
         },
-        component: checkbox
+        component: Checkbox
     },
     {
         path: '/dropdown',
         meta: {
             title: '下拉菜单'
         },
-        component: dropdown
+        component: Dropdown
     },
     {
         path: '/slots',
         meta: {
             title: '老虎机'
         },
-        component: slots
+        component: Slots
     },
     {
         path: '/tabs',
         meta: {
             title: '标签页'
         },
-        component: tabs
+        component: Tabs
     },
     {
         path: '/scratch-card',
         meta: {
             title: '刮刮卡'
         },
-        component: scratchCard
+        component: ScratchCard
     },
     {
         path: '/verification',
         meta: {
             title: '验证'
         },
-        component: verification
+        component: Verification
     },
     {
         path: '/collapse',
         meta: {
             title: '折叠面板'
         },
-        component: collapse
+        component: Collapse
     },
     {
         path: '/rate',
         meta: {
             title: 'Rate评分'
         },
-        component: rate
+        component: Rate
+    },
+    {
+        path: '/switch',
+        meta: {
+            title: 'switch开关'
+        },
+        component: Switch
     },
 ];
 

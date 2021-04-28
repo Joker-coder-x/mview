@@ -164,3 +164,77 @@ export function mergeOptions(src, dest, exculde = []) {
 
     return obj;
 }
+
+/*
+   summary:
+	  将css的属性值，转变为rgb格式的对像
+
+   "#fff"  -> 0xfff
+   长度为4， 一个字符占用代表一个属性, 0x10 == 16（2的4次方，即1后面4个0) === 1 0000, 那么一个f 为 1111
+   占位符为 mask = 1111, 用于占住后四位(&用于保留后四位的值), 其他高位清零
+   每一次遍历都从后四位開始，所以先获取到 b值，难后移动4位，在获取到 g, 在移动4位，获取到 r
+   获取b属性：
+   0000 1111 1111 1111 & 0000 0000 0000 1111 (这里仅仅列举出16位, 正常的是32位)
+   0000 0000 0000 1111 b保存到变量 c
+   0000 1111 1111 1111 >> 4, -> 0000 0000 1111 1111
+   获取g属性
+   0000 0000 1111 1111 & 0000 0000 0000 1111
+   0000 0000 0000 1111 获得到g的值，保存到变量 c
+   在移四位，获取r的值
+
+   "ffffff" -> 0xffffff
+   长度为8。每两个字符代表一个函数 0xff = 1111 1111
+   每次获取后8位，刚好代表颜色值
+   */
+export function fromHex(color,a=1){
+	  var t = {},
+			  bits = (color.length == 4) ? 4 : 8,
+			  mask = (1 << bits) - 1; 
+	  color = Number("0x" + color.substr(1)); 
+	  if(isNaN(color)){
+		  return null; // Color
+	  }
+	  ["b", "g", "r"].forEach(function(x){
+		  var c = color & mask;
+		  color >>= bits;
+		  t[x] = bits == 4 ? 17 * c : c; 
+
+	  });
+	  t.a = a;
+	  return t;	// Color
+
+ }
+  
+  /**
+   * @description  得到一个更亮或者更暗的值，通过一个给定的十六进制颜色值（比如#F06D06,或者没有#）
+   * @param {type} col 
+   * */
+ export function lightenDarkenColor(col, amt) {
+	
+	  var usePound = false;
+	
+	  if (col[0] == "#") {
+		  col = col.slice(1);
+		  usePound = true;
+	  }
+   
+	  var num = parseInt(col,16);
+   
+	  var r = (num >> 16) + amt;
+   
+	  if (r > 255) r = 255;
+	  else if  (r < 0) r = 0;
+   
+	  var b = ((num >> 8) & 0x00FF) + amt;
+   
+	  if (b > 255) b = 255;
+	  else if  (b < 0) b = 0;
+   
+	  var g = (num & 0x0000FF) + amt;
+   
+	  if (g > 255) g = 255;
+	  else if (g < 0) g = 0;
+   
+	  return (usePound?"#":"") + (g | (b << 8) | (r << 16)).toString(16);
+	
+  }
