@@ -29,8 +29,12 @@ const Rate = () =>
 const Switch = () =>
     import ('@/pages/switch/index.vue');
 
-const routes = [{
+const routes = [
+	{
         path: '/',
+		meta: {
+		    title: 'Layout布局'
+		},
         component: Layout
     },
     {

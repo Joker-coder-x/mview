@@ -1,6 +1,73 @@
 <template>
     <div>
-        <h1> Container 布局容器</h1>
+		<h1>网格布局</h1>
+		<div>
+			<h1>栅格布局</h1>
+			<h2>普通用法</h2>
+			<m-row style="margin-bottom: 30px;">
+				<m-col :span="12" >
+					<div>12</div>
+				</m-col>
+				<m-col :span="12"  >
+					<div>12</div>
+				</m-col>
+			</m-row>
+			<h2>通过gutter指定栅格之间的间距</h2>
+			<m-row :gutter="50" style="margin-bottom: 30px;">
+				<m-col :span="8" >
+					<div>8-gutter-50</div>
+			    </m-col>
+				<m-col :span="16"  >
+					<div>16-gutter-50</div>
+				</m-col>
+			</m-row>
+			<h2>通过offset指定栅格对起始位置的偏移</h2>
+			<m-row style="margin-bottom: 30px;">
+				<m-col :span="12" :offset="12"  >
+					<div>12-offset</div>
+				</m-col>
+			</m-row>
+			<h2>通过push和pull指定对栅格当前位置的左右偏移</h2>
+			<m-row>
+				<m-col :span="6"  :push="18"  >
+					<div>6-push</div>
+				</m-col>
+				<m-col :span="18"  :pull="6"  >
+					<div>18-pull</div>
+				</m-col>
+			</m-row>
+			<h1 style="margin-top: 40px;">flex布局</h1>
+			<h2>居中对齐</h2>
+			<m-row type="flex" justify="center" align="center" style="height: 200px;">
+				<m-col :span="8">
+					<div>8</div>
+				</m-col>
+				<m-col :span="8" >
+					<div>8</div>
+				</m-col>
+			</m-row>
+			<h2>顶部对齐</h2>
+			<m-row type="flex" justify="center" align="start" style="height: 200px;">
+				<m-col :span="8">
+					<div>8</div>
+				</m-col>
+				<m-col :span="8" >
+					<div>8</div>
+				</m-col>
+			</m-row>
+			<h2>底部对齐</h2>
+			<m-row type="flex" justify="center" align="end" style="height: 200px;">
+				<m-col :span="8">
+					<div>8</div>
+				</m-col>
+				<m-col :span="8" >
+					<div>8</div>
+				</m-col>
+			</m-row>
+		</div>
+		
+		
+        <h1 style="margin-top: 40px;"> Container 布局容器</h1>
         <h2>用于布局的容器组件，方便快速搭建页面的基本结构：</h2>
         
         <ul style="font-size:2rem">
@@ -120,5 +187,14 @@ export default {
 
 .m-main{
     background-color: #2ecc71;
+}
+
+.m-row>.m-col:first-child>div{
+	background-color: #f39c12;
+	padding: 20px;
+}
+.m-row>.m-col:last-child>div{
+	background-color: #e67e22;
+	padding: 20px;
 }
 </style>
