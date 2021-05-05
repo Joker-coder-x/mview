@@ -1,8 +1,8 @@
-import Slots from './src/slots.vue';
+import Slots from "./src/slots.vue";
 
 // install
 Slots.install = function(Vue) {
-    Vue.component(Slots.name, Slots);
-}
+  Vue.component(Slots.name, Slots);
+};
 
 export default Slots;

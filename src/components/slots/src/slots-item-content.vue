@@ -1,16 +1,16 @@
 <template>
-    <div class="content-child"><slot></slot></div>
+  <div class="content-child"><slot></slot></div>
 </template>
 
 <script>
 export default {
-    name:'MSlotsItemContent',
+  name: "MSlotsItemContent",
 
-    props:{
-        name:{
-            type:String|Number,
-            required: true
-        }
+  props: {
+    name: {
+      type: [String, Number],
+      required: true
     }
-}
+  }
+};
 </script>

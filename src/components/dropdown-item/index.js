@@ -1,8 +1,7 @@
-import  DropdownItem from "../dropdown/src/dropdown-item.vue";
+import DropdownItem from "../dropdown/src/dropdown-item.vue";
 
-/* istanbul ignore next */
-DropdownItem.install=function(Vue,options){
-	Vue.component(DropdownItem.name,DropdownItem);
-}
+DropdownItem.install = function(Vue) {
+  Vue.component(DropdownItem.name, DropdownItem);
+};
 
 export default DropdownItem;

@@ -1,5 +1,4 @@
-import Hover from './hover.js';
+import Hover from "./hover.js";
+import Focus from "./focus.js";
 
-export {
-    Hover
-}
+export { Hover, Focus };

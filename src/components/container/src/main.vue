@@ -1,9 +1,9 @@
 <template>
-    <main class="m-main"><slot></slot></main>
+  <main class="m-main"><slot></slot></main>
 </template>
 
 <script>
 export default {
-    name:'MMain'
-}
+  name: "MMain"
+};
 </script>

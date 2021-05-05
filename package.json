@@ -8,6 +8,7 @@
         "inspect": "vue-cli-service inspect"
     },
     "dependencies": {
+        "@popperjs/core": "^2.7.0",
         "core-js": "^2.6.5",
         "less": "^4.1.1",
         "vue": "^2.6.10",
@@ -16,6 +17,8 @@
     "devDependencies": {
         "@vue/cli-plugin-babel": "^3.8.0",
         "@vue/cli-service": "^3.8.0",
+        "eslint": "^7.25.0",
+        "eslint-plugin-vue": "^7.9.0",
         "less-loader": "^7.3.0",
         "vue-template-compiler": "^2.6.10"
     }

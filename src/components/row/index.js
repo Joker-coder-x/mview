@@ -1,8 +1,7 @@
-import {Row} from "../layout/index.js";
+import { Row } from "../layout/index.js";
 
-Row.install=function(Vue){
-	Vue.component(Row.name,Row);
-}
-
+Row.install = function(Vue) {
+  Vue.component(Row.name, Row);
+};
 
 export default Row;

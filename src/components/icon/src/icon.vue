@@ -1,14 +1,13 @@
 <template>
-    <i :class="'mIcon-'+name"></i>
+  <i :class="'mIcon-' + name"></i>
 </template>
-
 
 <script>
 export default {
-    name:'MIcon',
+  name: "MIcon",
 
-    props:{
-        name:String
-    }
-}
+  props: {
+    name: String
+  }
+};
 </script>
