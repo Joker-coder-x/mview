@@ -1,6 +1,15 @@
-import { isFunction, deleteProp, $on, $off } from "@/utils/index.js";
+import {
+  isFunction,
+  deleteProp,
+  $on,
+  $off,
+  NATIVE_EVENT_NAMES
+} from "@/utils/index.js";
 
-const EVENT_NAMES = ["mouseenter", "mouseleave"];
+const EVENT_NAMES = [
+  NATIVE_EVENT_NAMES.mouseenter,
+  NATIVE_EVENT_NAMES.mouseleave
+];
 
 const bind = function(el, binding) {
   const handleMouseEnter = function(e) {

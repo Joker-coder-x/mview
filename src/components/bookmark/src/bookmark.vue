@@ -204,25 +204,3 @@ export default {
   }
 };
 </script>
-
-<style lang="less">
-.m-bookmark {
-  display: inline-block;
-  position: relative;
-  text-align: center;
-  padding: 10px;
-  white-space: nowrap;
-  cursor: pointer;
-  font-weight: 520;
-  letter-spacing: 2px;
-  &:hover {
-    opacity: 0.8;
-  }
-  .before {
-    position: absolute !important;
-  }
-  .after {
-    position: absolute !important;
-  }
-}
-</style>

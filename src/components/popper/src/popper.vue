@@ -26,7 +26,7 @@
 //导入Lib
 import { createPopper } from "@popperjs/core";
 //导入工具函数
-import { no, $on, $off } from "@/utils/index.js";
+import { no, $on, $off, NATIVE_EVENT_NAMES } from "@/utils/index.js";
 //导入自定义指令
 import Trigger from "./directives/index.js";
 
@@ -198,19 +198,19 @@ export default {
 
     switch (this.trigger) {
       case TRIGGER_LIST[0]: //hover
-        $on(referenceElm, "mouseenter", this.handleShow);
-        $on(referenceElm, "mouseleave", this.handleHidden);
+        $on(referenceElm, NATIVE_EVENT_NAMES.mouseenter, this.handleShow);
+        $on(referenceElm, NATIVE_EVENT_NAMES.mouseleave, this.handleHidden);
         break;
       case TRIGGER_LIST[1]: //click
-        $on(referenceElm, "click", e => {
+        $on(referenceElm, NATIVE_EVENT_NAMES.click, e => {
           if (!popper.contains(e.target)) {
             this.handleReferenceClick();
           }
         });
         break;
       case TRIGGER_LIST[2]: //focus
-        $on(referenceElm, "mousedown", this.handleFocus);
-        $on(referenceElm, "mouseup", this.handleBlur);
+        $on(referenceElm, NATIVE_EVENT_NAMES.mousedown, this.handleFocus);
+        $on(referenceElm, NATIVE_EVENT_NAMES.mouseup, this.handleBlur);
         break;
       case TRIGGER_LIST[3]: //manual
         break;
@@ -221,8 +221,8 @@ export default {
 
       if (inputChild) {
         this.isInput = true;
-        $on(inputChild, "focus", this.handleFocus);
-        $on(inputChild, "blur", this.handleBlur);
+        $on(inputChild, NATIVE_EVENT_NAMES.focus, this.handleFocus);
+        $on(inputChild, NATIVE_EVENT_NAMES.blur, this.handleBlur);
       }
     }
 
@@ -234,15 +234,15 @@ export default {
 
     switch (this.trigger) {
       case TRIGGER_LIST[0]: //hover
-        $off(referenceElm, "mouseenter", this.handleShow);
-        $off(referenceElm, "mouseleave", this.handleHidden);
+        $off(referenceElm, NATIVE_EVENT_NAMES.mouseenter, this.handleShow);
+        $off(referenceElm, NATIVE_EVENT_NAMES.mouseleave, this.handleHidden);
         break;
       case TRIGGER_LIST[1]: //click
-        $off(referenceElm, "click", this.handleReferenceClick);
+        $off(referenceElm, NATIVE_EVENT_NAMES.click, this.handleReferenceClick);
         break;
       case TRIGGER_LIST[2]: //focus
-        $off(referenceElm, "mousedown", this.handleFocus);
-        $off(referenceElm, "mouseup", this.handleBlur);
+        $off(referenceElm, NATIVE_EVENT_NAMES.mousedown, this.handleFocus);
+        $off(referenceElm, NATIVE_EVENT_NAMES.mouseup, this.handleBlur);
         break;
       case TRIGGER_LIST[3]: //manual
         break;
@@ -254,8 +254,8 @@ export default {
 
       if (inputChild) {
         this.isInput = true;
-        $off(inputChild, "focus", this.handleFocus);
-        $off(inputChild, "blur", this.handleBlur);
+        $off(inputChild, NATIVE_EVENT_NAMES.focus, this.handleFocus);
+        $off(inputChild, NATIVE_EVENT_NAMES.blur, this.handleBlur);
       }
     }
 
@@ -374,50 +374,3 @@ export default {
   }
 };
 </script>
-
-<style lang="less">
-// .m-popper {
-//   display: inline-block;
-// }
-
-// .tooltip {
-//   background-color: white;
-//   border-radius: 4px;
-//   padding: 20px;
-//   box-shadow: 0 0 10px #d1d1d1;
-// }
-
-// .arrow,
-// .arrow::before {
-//   position: absolute;
-//   width: 8px;
-//   height: 8px;
-//   background: inherit;
-// }
-
-// .arrow {
-//   visibility: hidden;
-// }
-
-// .arrow::before {
-//   visibility: visible;
-//   content: "";
-//   transform: rotate(45deg);
-// }
-
-// .tooltip[data-popper-placement^="top"] > .arrow {
-//   bottom: -4px;
-// }
-
-// .tooltip[data-popper-placement^="bottom"] > .arrow {
-//   top: -4px;
-// }
-
-// .tooltip[data-popper-placement^="left"] > .arrow {
-//   right: -4px;
-// }
-
-// .tooltip[data-popper-placement^="right"] > .arrow {
-//   left: -4px;
-// }
-</style>

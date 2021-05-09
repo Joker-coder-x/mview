@@ -19,7 +19,6 @@
 
 <script>
 import { genrateUiniqueId } from "@/utils/index.js";
-
 //导入自定义指令
 import Draw from "./directives/draw.js";
 

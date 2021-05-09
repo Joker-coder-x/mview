@@ -154,6 +154,42 @@
         {{ item.content }}
       </m-tab-pane>
     </m-tabs>
+
+    <h3>为lable设置字体图标</h3>
+    <p>通过对m-tab-pane的icon属性进行配置。</p>
+    <m-tabs>
+      <m-tab-pane
+        v-for="(item, index) in tabList2"
+        :key="item.name"
+        :name="item.name"
+        :label="item.label"
+        :icon="item.icon"
+      >
+        <template v-slot:label v-if="index >= 2">
+          {{ item.content }} <i class="mIcon-github"></i>
+        </template>
+        {{ item.content }}
+      </m-tab-pane>
+    </m-tabs>
+
+    <h3>通过slot设置label标签</h3>
+    <p>
+      通过对m-tab-pane提供label插槽自定义label标签，此方式配置的label标签渲染优先级最高。
+    </p>
+    <m-tabs>
+      <m-tab-pane
+        v-for="(item, index) in tabList2"
+        :key="item.name"
+        :name="item.name"
+        :label="item.label"
+        :icon="item.icon"
+      >
+        <template v-slot:label v-if="index >= 2">
+          {{ item.content }}by slot
+        </template>
+        {{ item.content }}
+      </m-tab-pane>
+    </m-tabs>
   </div>
 </template>
 
@@ -183,17 +219,20 @@ export default {
         {
           label: "标签一",
           name: "1",
-          content: "标签一的内容"
+          content: "标签一的内容",
+          icon: "mIcon-windows8"
         },
         {
           label: "标签二",
           name: 2,
-          content: "标签二的内容"
+          content: "标签二的内容",
+          icon: "mIcon-android"
         },
         {
           label: "标签三",
           name: 3,
-          content: "标签三的内容"
+          content: "标签三的内容",
+          icon: "mIcon-appleinc"
         }
       ]
     };

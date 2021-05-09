@@ -23,6 +23,10 @@ export default {
     disabled: {
       type: Boolean,
       default: false
+    },
+    icon: {
+      type: String,
+      default: ""
     }
   },
 

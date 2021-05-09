@@ -32,20 +32,3 @@ export default {
   }
 };
 </script>
-
-<style lang="less">
-// .m-container {
-//   display: flex;
-
-//   & > .m-aside + .m-main,
-//   & > .m-aside + &,
-//   & > .m-main,
-//   & > & {
-//     flex: 8;
-//   }
-// }
-
-// .is-vertical {
-//   flex-direction: column;
-// }
-</style>

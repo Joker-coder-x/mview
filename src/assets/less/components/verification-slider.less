@@ -1,0 +1,115 @@
+@zindex-clip-canvas: 2;
+@zindex-main-canvas: 1;
+@zindex-canvas-slider: 10;
+@zindex-canvas-slider-background: 2;
+@zindex-canvs-slider-warp-plhr: 1;
+@zidnex-canvs-slider-warp-error-msg: 3;
+@zindex-canvas-refresh: 5;
+
+.m-verification-slider {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 40px;
+  width: 500px;
+  box-sizing: content-box;
+
+  .clip-canvas {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: @zindex-clip-canvas;
+  }
+
+  .main-canvas {
+    position: relative;
+    z-index: @zindex-main-canvas;
+  }
+
+  .refresh {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    opacity: 0.7;
+    z-index: @zindex-canvas-refresh;
+    color: white;
+    font-size: 25px;
+    text-shadow: 5px 5px 5px #3a3737;
+
+    &:hover {
+      opacity: 0.9;
+      cursor: pointer;
+    }
+  }
+
+  .slider-warp {
+    position: absolute;
+    left: 0;
+    bottom: -10px;
+    height: 40px;
+    width: calc(100% - 2px);
+    background-color: #f7f9fa;
+    border: 1px solid #e4e7eb;
+    border-radius: 2px;
+    cursor: pointer;
+
+    .slider {
+      height: 100%;
+      width: 40px;
+      text-align: center;
+      line-height: $width;
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: @zindex-canvas-slider;
+      cursor: pointer;
+      font-weight: bold;
+      color: @text-color;
+      border-radius: 2px;
+      box-shadow: 0 0 8px rgb(189, 183, 183);
+      background-color: white;
+    }
+
+    .slider-background {
+      position: relative;
+      height: 100%;
+      z-index: @zindex-canvas-slider-background;
+    }
+
+    .slider-warp-plhr,
+    .slider-warp-error-msg {
+      .absolute-center();
+      font-size: 15px;
+      color: #aaa;
+      letter-spacing: 1.5px;
+    }
+
+    .slider-warp-plhr {
+      z-index: @zindex-canvs-slider-warp-plhr;
+    }
+
+    .slider-warp-error-msg {
+      z-index: @zidnex-canvs-slider-warp-error-msg;
+      color: @danger-color;
+    }
+
+    .hover {
+      background-color: @primary-color;
+      color: white;
+    }
+
+    .error,
+    .success {
+      font-size: 25px;
+      color: white;
+      font-weight: bold;
+    }
+
+    .error {
+      background: @danger-color;
+    }
+
+    .success {
+      background: @success-color;
+    }
+  }
+}
