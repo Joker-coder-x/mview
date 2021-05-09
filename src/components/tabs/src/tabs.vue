@@ -9,7 +9,15 @@
           @click="handleTabBarItemClick(item)"
           :style="getTabsStyle(item)"
         >
-          {{ item.label }}
+          <m-render
+            v-if="item.slotLabel !== null"
+            :children="item.slotLabel || []"
+            tag="span"
+          ></m-render>
+          <span v-else>
+            <i v-if="item.icon" :class="['pre-icon', item.icon]"></i>
+            {{ item.label }}
+          </span>
           <i
             class="mIcon-cross m-tabs-bar-remove"
             v-show="editable && item.name == currentIndex"
@@ -31,8 +39,12 @@
 </template>
 
 <script>
+import MRender from "../../render/index.js";
+
 export default {
   name: "MTabs",
+
+  components: { MRender },
 
   model: {
     prop: "value",
@@ -122,22 +134,26 @@ export default {
       const tabs = this.getTabs();
 
       tabs.forEach((pane, index) => {
+        const paneName = pane.getName();
+
         this.navList.push({
           label: pane.label,
-          name: pane.getName() || index,
-          disabled: pane.disabled
+          name: paneName || index,
+          disabled: pane.disabled,
+          icon: pane.icon,
+          slotLabel: pane.$slots.label || null
         });
 
-        if (pane.getName() === "") {
+        if (paneName === "") {
           pane.setName(index.toString());
         }
         if (index === 0) {
           if (!this.currentIndex) {
-            this.currentIndex = pane.getName() || index;
+            this.currentIndex = paneName || index;
           }
         }
         if (tabs.length === 1 && !pane.disabled) {
-          this.currentIndex = pane.getName() || index;
+          this.currentIndex = paneName || index;
         }
       });
 

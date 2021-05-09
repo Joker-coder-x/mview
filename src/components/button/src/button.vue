@@ -24,6 +24,8 @@
 <script>
 import mIcon from "../../icon/index.js";
 
+import { NATIVE_EVENT_NAMES } from "@/utils/index.js";
+
 export default {
   name: "MButton",
 
@@ -69,20 +71,18 @@ export default {
   methods: {
     handleClick(e) {
       if (this.disabled) return;
-      this.$emit("click", e);
+      this.$emit(NATIVE_EVENT_NAMES.click, e);
     },
 
     handleFocus(e) {
       if (this.disabled) return;
-      this.$emit("focus", e);
+      this.$emit(NATIVE_EVENT_NAMES.focus, e);
     },
 
     handleBlur(e) {
       if (this.disabled) return;
-      this.$emit("blur", e);
+      this.$emit(NATIVE_EVENT_NAMES.blur, e);
     }
   }
 };
 </script>
-
-<style scoped></style>

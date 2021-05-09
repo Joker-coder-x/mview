@@ -52,11 +52,16 @@
       white-space: nowrap;
       margin-right: 4px;
       position: relative;
+      font-size: 14px;
       font-weight: 500;
       color: @title-color;
       background-color: @white;
       cursor: pointer;
       transition: all @transition-time ease-in-out;
+
+      .pre-icon {
+        padding-right: @padding-xs;
+      }
 
       &:last-child {
         margin-right: 0 !important;

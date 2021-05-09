@@ -1,6 +1,12 @@
-import { isFunction, deleteProp, $on, $off } from "@/utils/index.js";
+import {
+  isFunction,
+  deleteProp,
+  $on,
+  $off,
+  NATIVE_EVENT_NAMES
+} from "@/utils/index.js";
 
-const EVENT_NAMES = ["focus", "blur"];
+const EVENT_NAMES = [NATIVE_EVENT_NAMES.focus, NATIVE_EVENT_NAMES.blur];
 
 const bind = function(el, binding) {
   const handleFocus = e => {

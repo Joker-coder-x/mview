@@ -1,4 +1,4 @@
-import { deleteProp } from "@/utils/index.js";
+import { deleteProp, NATIVE_EVENT_NAMES, $on, $off } from "@/utils/index.js";
 
 export default {
   bind(el, binding) {
@@ -21,18 +21,18 @@ export default {
       isDown = false;
     };
 
-    el.addEventListener("mousemove", handleMouseMove);
-    el.addEventListener("mousedown", handleMouseDown);
-    document.addEventListener("mouseup", handleMouseUp);
+    $on(el, NATIVE_EVENT_NAMES.mousemove, handleMouseMove);
+    $on(el, NATIVE_EVENT_NAMES.mousedown, handleMouseDown);
+    $on(document, NATIVE_EVENT_NAMES.mouseup, handleMouseUp);
 
     el.__vueMouseMove__ = handleMouseMove;
     el.__vueMouseDown__ = handleMouseDown;
     el.__vueMouseUp__ = handleMouseUp;
   },
   unbind(el) {
-    el.removeEventListener("mousemove", el.__vueMouseMove__);
-    el.removeEventListener("mousedown", el.__vueMouseDown__);
-    document.removeEventListener("mouseup", el.__vueMouseUp__);
+    $off(el, NATIVE_EVENT_NAMES.mousemove, el.__vueMouseMove__);
+    $off(el, NATIVE_EVENT_NAMES.mousedown, el.__vueMouseDown__);
+    $off(document, NATIVE_EVENT_NAMES.mouseup, el.__vueMouseUp__);
 
     deleteProp(el, "__vueMouseMove__");
     deleteProp(el, "__vueMouseDown__");

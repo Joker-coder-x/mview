@@ -1,5 +1,5 @@
 <template>
-  <div class="warp">
+  <div class="m-verification-slider">
     <canvas
       ref="canvas"
       class="main-canvas"
@@ -20,23 +20,23 @@
           !showError && !showSuccess ? 'mIcon-arrow-right2' : '',
           isDown ? 'hover' : '',
           showError ? 'mIcon-cross error' : '',
-          showSuccess ? 'mIcon-checkbox-circle-line success' : ''
+          showSuccess ? 'mIcon-check success' : ''
         ]"
         ref="slider"
         :style="getSliderStyle"
         v-show="useErrorTimes !== maxErrorTimes"
       ></div>
       <div class="slider-background" :style="getSliderBackgroundStyle"></div>
-      <span class="slider-warp-plhr" v-show="useErrorTimes !== maxErrorTimes">{{
-        placeholder
-      }}</span>
+      <span class="slider-warp-plhr" v-show="useErrorTimes !== maxErrorTimes">
+        {{ placeholder }}</span
+      >
       <span
         class="slider-warp-error-msg"
         @click="handleReDo"
         v-show="useErrorTimes === maxErrorTimes"
-        ><span class="mIcon-cross-circle-fill"></span>
-        失败次数过多，点击重试</span
       >
+        <span class="mIcon-cross-circle-fill"> 失败次数过多，点击重试</span>
+      </span>
     </div>
   </div>
 </template>
@@ -45,7 +45,13 @@
 //导入lib
 import VerificationSlider from "./lib/VerificationSlider.js";
 //导入助手函数
-import { mergeOptions, deleteProp } from "@/utils/index.js";
+import {
+  mergeOptions,
+  deleteProp,
+  $on,
+  $off,
+  NATIVE_EVENT_NAMES
+} from "@/utils/index.js";
 
 const shapeList = ["square", "circle"];
 
@@ -166,7 +172,9 @@ export default {
     getSliderBackgroundStyle() {
       let borderColor = "var(--primary)",
         backgroundColor = "#CEE5FA",
-        width =(this.sliderShape === shapeList[1] ? this.left + 40 : this.left) +"px";
+        width =
+          (this.sliderShape === shapeList[1] ? this.left + 40 : this.left) +
+          "px";
       if (this.showError || this.useErrorTimes == this.maxErrorTimes) {
         borderColor = "var(--danger)";
         backgroundColor = "#FCE1E1";
@@ -188,6 +196,58 @@ export default {
         borderLeft: `1px solid ${borderColor}`
       };
     }
+  },
+
+  mounted() {
+    const vm = this,
+      sliderWarp = vm.$refs.sliderWarp,
+      slider = vm.$refs.slider;
+
+    vm.defaultConfig = mergeOptions(vm.defaultConfig, vm.config, [
+      "canvas",
+      "clipCvs"
+    ]);
+    vm.defaultConfig.canvas = vm.$refs.canvas;
+    vm.defaultConfig.clipCvs = vm.$refs.clip;
+
+    //动态计算可移动的区域
+    vm.movable = sliderWarp.clientWidth - slider.offsetWidth;
+
+    const handleOnLoad = function() {
+      vm.__hanldeMouseDown__ = e => vm.handleMouseDown(e);
+      vm.__handleMouseMove__ = e => vm.handleMouseMove(e);
+      vm.__handleMouseUp__ = e => vm.handleMouseUp(e);
+      $on(slider, NATIVE_EVENT_NAMES.mousedown, vm.__hanldeMouseDown__);
+      $on(document, NATIVE_EVENT_NAMES.mousemove, vm.__handleMouseMove__);
+      $on(document, NATIVE_EVENT_NAMES.mouseup, vm.__handleMouseUp__);
+    };
+    //这个对象不需要进行响应式处理
+    vm.__veriThis__ = new VerificationSlider(handleOnLoad, vm.defaultConfig);
+  },
+
+  beforeDestroy() {
+    const vm = this;
+    if (vm.__hanldeMouseDown__) {
+      $off(
+        this.$refs.slider,
+        NATIVE_EVENT_NAMES.mousedown,
+        vm.__hanldeMouseDown__
+      );
+      vm.__hanldeMouseDown__ = null;
+      deleteProp(vm, "__hanldeMouseDown__");
+    }
+    if (vm.__handleMouseMove__) {
+      $off(document, NATIVE_EVENT_NAMES.mousemove, vm.__handleMouseMove__);
+      vm.__handleMouseMove__ = null;
+      deleteProp(vm, "__handleMouseMove__");
+    }
+    if (vm.__handleMouseUp__) {
+      $off(document, NATIVE_EVENT_NAMES.mouseup, vm.__handleMouseUp__);
+      vm.__handleMouseUp__ = null;
+      deleteProp(vm, "__handleMouseUp__");
+    }
+
+    this.__veriThis__ = null;
   },
 
   methods: {
@@ -298,174 +358,6 @@ export default {
         this.handleReset();
       });
     }
-  },
-
-  mounted() {
-    const vm = this,
-      sliderWarp = vm.$refs.sliderWarp,
-      slider = vm.$refs.slider;
-
-    vm.defaultConfig = mergeOptions(vm.defaultConfig, vm.config, [
-      "canvas",
-      "clipCvs"
-    ]);
-    vm.defaultConfig.canvas = vm.$refs.canvas;
-    vm.defaultConfig.clipCvs = vm.$refs.clip;
-
-    //动态计算可移动的区域
-    vm.movable = sliderWarp.clientWidth - slider.offsetWidth;
-
-    const handleOnLoad = function() {
-      vm.__hanldeMouseDown__ = e => vm.handleMouseDown(e);
-      vm.__handleMouseMove__ = e => vm.handleMouseMove(e);
-      vm.__handleMouseUp__ = e => vm.handleMouseUp(e);
-      //监听鼠标按下事件
-      slider.addEventListener("mousedown", vm.__hanldeMouseDown__);
-      //监听鼠标移动事件
-      document.addEventListener("mousemove", vm.__handleMouseMove__);
-      //监听鼠标抬起事件
-      document.addEventListener("mouseup", vm.__handleMouseUp__);
-    };
-    //这个对象不需要进行响应式处理
-    vm.__veriThis__ = new VerificationSlider(handleOnLoad, vm.defaultConfig);
-  },
-
-  beforeDestroy() {
-    const vm = this;
-    if (vm.__hanldeMouseDown__) {
-      this.$refs.slider.removeEventListener(
-        "mousedown",
-        vm.__hanldeMouseDown__
-      );
-      vm.__hanldeMouseDown__ = null;
-      deleteProp(vm, "__hanldeMouseDown__");
-    }
-    if (vm.__handleMouseMove__) {
-      document.removeEventListener("mousemove", vm.__handleMouseMove__);
-      vm.__handleMouseMove__ = null;
-      deleteProp(vm, "__handleMouseMove__");
-    }
-    if (vm.__handleMouseUp__) {
-      document.removeEventListener("mouseup", vm.__handleMouseUp__);
-      vm.__handleMouseUp__ = null;
-      deleteProp(vm, "__handleMouseUp__");
-    }
-
-    this.__veriThis__ = null;
   }
 };
 </script>
-
-<style scoped>
-.warp {
-  position: relative;
-  display: inline-block;
-  padding-bottom: 40px;
-  width: 500px;
-}
-
-.clip-canvas {
-  position: absolute;
-  left: 0;
-  top: 0;
-  z-index: 2;
-}
-
-.main-canvas {
-  position: relative;
-  z-index: 1;
-}
-
-.slider-warp {
-  position: absolute;
-  left: 0;
-  bottom: -1rem;
-  height: 40px;
-  width: calc(100% - 2px);
-  background-color: #f7f9fa;
-  border: 1px solid #e4e7eb;
-  border-radius: 2px;
-  cursor: pointer;
-}
-
-.slider {
-  height: 100%;
-  width: 40px;
-  text-align: center;
-  line-height: 40px;
-  position: absolute;
-  left: 0;
-  top: 0;
-  z-index: 999;
-  cursor: pointer;
-  font-weight: bold;
-  color: var(--text);
-  border-radius: 2px;
-  box-shadow: 0 0 8px rgb(189, 183, 183);
-  background-color: white;
-}
-
-.slider-background {
-  position: relative;
-  height: 100%;
-  z-index: 2;
-  box-sizing: border-box;
-}
-
-.slider-warp-plhr,
-.slider-warp-error-msg {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 1.5rem;
-  color: #aaa;
-  letter-spacing: 1.5px;
-}
-
-.slider-warp-plhr {
-  z-index: 1;
-}
-
-.slider-warp-error-msg {
-  z-index: 3;
-  color: var(--danger);
-}
-
-.hover {
-  background-color: var(--primary);
-  color: white;
-}
-
-.refresh {
-  position: absolute;
-  right: 10px;
-  top: 10px;
-  opacity: 0.7;
-  z-index: 99;
-  color: white;
-  font-size: 2.5rem;
-  text-shadow: 5px 5px 5px #3a3737;
-}
-
-.refresh:hover {
-  opacity: 0.9;
-  cursor: pointer;
-}
-
-.error,
-.success {
-  font-size: 2.5rem;
-
-  color: white;
-  font-weight: bold;
-}
-
-.error {
-  background: var(--danger);
-}
-
-.success {
-  background: var(--success);
-}
-</style>

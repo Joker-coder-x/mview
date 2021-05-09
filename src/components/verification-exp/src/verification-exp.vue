@@ -71,7 +71,14 @@
 //导入子组件
 import { Row as MRow, Col as MCol } from "../../layout/index.js";
 //导入工具函数
-import { genrateUiniqueId, deleteProp } from "@/utils/index.js";
+import {
+  genrateUiniqueId,
+  deleteProp,
+  $on,
+  $off,
+  jsonClone,
+  NATIVE_EVENT_NAMES
+} from "@/utils/index.js";
 //导入lib库
 import createVerificationFactory from "./lib/VerificationFactory.js";
 
@@ -205,9 +212,7 @@ export default {
     draw() {
       this.$emit("drawBefore");
       this.__veriThis__.draw(
-        this.isUseDefaultConfig
-          ? this.defaultConfig
-          : JSON.parse(JSON.stringify(this.config))
+        this.isUseDefaultConfig ? this.defaultConfig : jsonClone(this.config)
       );
     },
 
@@ -252,7 +257,7 @@ export default {
       if (refreshTarget && refreshTarget instanceof HTMLElement) {
         const handleRefreshTargetClick = () => this.draw();
 
-        refreshTarget.addEventListener("click", handleRefreshTargetClick);
+        $on(refreshTarget, NATIVE_EVENT_NAMES.click, handleRefreshTargetClick);
         //保存事件处理程序 以便在beforeDestroy中移除它们
         this.__refreshTarget__ = refreshTarget;
         this.__refreshTargetHandler__ = handleRefreshTargetClick;
@@ -264,7 +269,7 @@ export default {
       if (inputTarget && inputTarget instanceof HTMLInputElement) {
         const handleInputTargetInput = e => (this.value = e.target.value);
 
-        inputTarget.addEventListener("input", handleInputTargetInput);
+        $on(inputTarget, NATIVE_EVENT_NAMES.input, handleInputTargetInput);
 
         this.__inputTarget__ = inputTarget;
         this.__inputTargetHandler__ = handleInputTargetInput;
@@ -278,7 +283,7 @@ export default {
       if (submitTarget && submitTarget instanceof HTMLElement) {
         const handleSubmitTargetClick = () => this.handleSubmit();
 
-        submitTarget.addEventListener("click", handleSubmitTargetClick);
+        $on(submitTarget, NATIVE_EVENT_NAMES.click, handleSubmitTargetClick);
 
         this.__submitTarget__ = submitTarget;
         this.__submitTargetHandler__ = handleSubmitTargetClick;
@@ -294,30 +299,36 @@ export default {
 
     //清除mounted中的注册的事件处理程序 防止内存泄露
     if (this.__refreshTarget__) {
-      this.__refreshTarget__.removeEventListener(
-        "click",
+      $off(
+        this.__refreshTarget__,
+        NATIVE_EVENT_NAMES.click,
         this.__refreshTargetHandler__
       );
+
       this.__refreshTargetHandler__ = null;
 
       deleteProp(this, "__refreshTarget__");
       deleteProp(this, "__refreshTargetHandler__");
     }
     if (this.__inputTarget__) {
-      this.__inputTarget__.removeEventListener(
-        "input",
+      $off(
+        this.__inputTarget__,
+        NATIVE_EVENT_NAMES.input,
         this.__inputTargetHandler__
       );
+
       this.__inputTargetHandler__ = null;
 
       deleteProp(this, "__inputTarget__");
       deleteProp(this, "__inputTargetHandler__");
     }
     if (this.__submitTarget__) {
-      this.__submitTarget__.removeEventListener(
-        "click",
+      $off(
+        this.__submitTarget__,
+        NATIVE_EVENT_NAMES.click,
         this.__submitTargetHandler__
       );
+
       this.__submitTargetHandler__ = null;
 
       deleteProp(this, "__submitTarget__");
@@ -326,11 +337,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-.m-verification-exp {
-  display: inline-block;
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
-</style>

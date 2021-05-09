@@ -18,7 +18,13 @@
 
 <script>
 import { genrateRunTimesSet } from "./utils.js";
-import { deleteProp, $on, $off, jsonClone } from "@/utils/index.js";
+import {
+  deleteProp,
+  $on,
+  $off,
+  jsonClone,
+  NATIVE_EVENT_NAMES
+} from "@/utils/index.js";
 
 export default {
   name: "MSlots",
@@ -74,7 +80,7 @@ export default {
       if (startTarget && startTarget instanceof HTMLElement) {
         const handler = () => this.handleRun();
 
-        $on(startTarget, "click", handler);
+        $on(startTarget, NATIVE_EVENT_NAMES.click, handler);
 
         this.__startTarget__ = startTarget;
         this.__startTargetHandler__ = handler;
@@ -84,7 +90,11 @@ export default {
 
   beforeDestroy() {
     if (this.__startTarget__) {
-      $off(this.__startTarget__, "click", this.__startTargetHandler__);
+      $off(
+        this.__startTarget__,
+        NATIVE_EVENT_NAMES.click,
+        this.__startTargetHandler__
+      );
 
       this.__startTarget__ = null;
       this.__startTargetHandler__ = null;
