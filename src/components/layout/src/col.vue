@@ -81,32 +81,32 @@ export default {
 </script>
 
 <style lang="less">
-@counter: 24;
-.m-col {
-  box-sizing: border-box;
-  background: transparent !important;
-}
+// @counter: 24;
+// .m-col {
+//   box-sizing: border-box;
+//   background: transparent !important;
+// }
 
-.m-col-loop(@index) when (@index > 0) {
-  .m-col-loop(@index - 1);
+// .m-col-loop(@index) when (@index > 0) {
+//   .m-col-loop(@index - 1);
 
-  @rate: (@index / 24) * 100%;
-  .m-col-span-@{index} {
-    flex: 0 0 @rate;
-    max-width: @rate;
-    display: block;
-  }
-  .m-col-push-@{index} {
-    position: relative;
-    left: @rate;
-  }
-  .m-col-pull-@{index} {
-    position: relative;
-    right: @rate;
-  }
-  .m-col-offset-@{index} {
-    margin-left: @rate;
-  }
-}
-.m-col-loop(@counter);
+//   @rate: (@index / 24) * 100%;
+//   .m-col-span-@{index} {
+//     flex: 0 0 @rate;
+//     max-width: @rate;
+//     display: block;
+//   }
+//   .m-col-push-@{index} {
+//     position: relative;
+//     left: @rate;
+//   }
+//   .m-col-pull-@{index} {
+//     position: relative;
+//     right: @rate;
+//   }
+//   .m-col-offset-@{index} {
+//     margin-left: @rate;
+//   }
+// }
+// .m-col-loop(@counter);
 </style>

@@ -1,0 +1,36 @@
+.m-checkbox {
+  position: relative;
+  display: inline-block;
+  color: @text-color;
+  cursor: pointer;
+  font-size: 14px;
+  white-space: nowrap;
+  line-height: 1;
+  padding: 1px;
+
+  input[type="checkbox"] {
+    opacity: 0;
+    padding-right: 50px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    cursor: inherit;
+    display: inline-block;
+  }
+
+  input[type="checkbox"] + label {
+    position: relative;
+    display: inline-block;
+    z-index: -1;
+    transform: scale(1.2);
+    vertical-align: middle;
+  }
+
+  .m-checkbox__inner-text {
+    white-space: nowrap;
+    display: inline-block;
+    vertical-align: middle;
+  }
+}

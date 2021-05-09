@@ -1,6 +1,6 @@
 <template>
-  <transition name="fade-x">
-    <div class="m-tab-pane" v-if="isShow">
+  <transition :name="transition" mode="in-out">
+    <div v-show="isShow" class="m-tabs-content__pane">
       <slot></slot>
     </div>
   </transition>
@@ -17,68 +17,55 @@ export default {
     },
     label: {
       type: String,
-      default: "test"
+      default: ""
+    },
+    //是否禁用改选项卡
+    disabled: {
+      type: Boolean,
+      default: false
     }
   },
 
   data() {
     return {
-      isShow: true
+      isShow: false,
+      index: "",
+      transition: "move-right"
     };
   },
 
+  watch: {
+    name() {
+      this.updateNav();
+    },
+    label() {
+      this.updateNav();
+    },
+    disabled() {
+      this.updateNav();
+    }
+  },
+
   mounted() {
-    this.$parent.updateNav();
+    this.updateNav();
   },
 
   beforeDestroy() {
-    this.$parent.removeTabBarItem(this.name);
+    this.$parent.removeTabBarItem(this.getName());
+  },
+
+  methods: {
+    getName() {
+      return this.name === "" ? this.index : this.name;
+    },
+
+    setName(name) {
+      this.index = name;
+    },
+
+    updateNav() {
+      this.$parent.updateNav();
+    }
   }
 };
 </script>
-
-<style scoped>
-.fade-y-enter-active {
-  animation-name: fade-y;
-  animation-duration: 1s;
-  animation-direction: alternate;
-}
-
-.fade-x-enter-active {
-  animation-name: fade-x;
-  animation-duration: 1s;
-  animation-direction: alternate;
-}
-
-@keyframes fade-x {
-  0% {
-    transform: translateX(0%);
-  }
-
-  50% {
-    transform: translateX(50%);
-    opacity: 0.2;
-  }
-
-  100% {
-    transform: translateX(100%);
-    opacity: 0;
-  }
-}
-
-@keyframes fade-y {
-  0% {
-    transform: translateY(0%);
-  }
-
-  50% {
-    transform: translateY(50%);
-    opacity: 0.2;
-  }
-
-  100% {
-    transform: translateY(100%);
-    opacity: 0;
-  }
-}
-</style>

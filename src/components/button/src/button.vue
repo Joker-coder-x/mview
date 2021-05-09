@@ -1,16 +1,20 @@
 <template>
   <button
-    class="m-button"
     :class="[
+      'm-button',
       'm-button-' + type,
       'm-button--' + size,
       round ? 'round' : '',
-      circle ? 'circle' : ''
+      circle ? 'circle' : '',
+      disabled ? 'is-disabled' : ''
     ]"
     :type="nativeType"
     :autofocus="autoFocus"
     :disabled="disabled"
     @click="handleClick"
+    @focus="handleFocus"
+    @blur="handleBlur"
+    ref="button"
   >
     <m-icon v-if="icon" :name="icon"></m-icon>
     <slot></slot>
@@ -22,6 +26,10 @@ import mIcon from "../../icon/index.js";
 
 export default {
   name: "MButton",
+
+  components: {
+    mIcon
+  },
 
   props: {
     icon: {
@@ -58,13 +66,20 @@ export default {
     }
   },
 
-  components: {
-    mIcon
-  },
-
   methods: {
-    handleClick(event) {
-      this.$emit("click", event);
+    handleClick(e) {
+      if (this.disabled) return;
+      this.$emit("click", e);
+    },
+
+    handleFocus(e) {
+      if (this.disabled) return;
+      this.$emit("focus", e);
+    },
+
+    handleBlur(e) {
+      if (this.disabled) return;
+      this.$emit("blur", e);
     }
   }
 };

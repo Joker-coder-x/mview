@@ -82,6 +82,25 @@
         </template>
       </m-slots>
     </div>
+
+    <div>
+      <h2>禁用状态</h2>
+      <m-slots @complete="handleComplete" disabled>
+        <template v-slot:default>
+          <m-slots-item v-for="n in 4" :key="n">
+            <m-slots-item-content
+              v-for="item in slotsList"
+              :key="item.name"
+              :name="item.name"
+            >
+              <div class="demo-slots-item-content-child">
+                {{ item.value }}
+              </div>
+            </m-slots-item-content>
+          </m-slots-item>
+        </template>
+      </m-slots>
+    </div>
   </div>
 </template>
 
@@ -132,7 +151,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 1.5rem;
+  font-size: 20px;
   background-color: #34495e;
   color: white;
   width: 100%;

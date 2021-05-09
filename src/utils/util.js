@@ -254,3 +254,11 @@ export function lightenDarkenColor(col, amt) {
 
 //什么事情都不做
 export function no() {}
+
+export function jsonClone(obj) {
+  if (!isObject(obj)) {
+    return obj;
+  } else {
+    return JSON.parse(JSON.stringify(obj));
+  }
+}

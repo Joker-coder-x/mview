@@ -69,7 +69,7 @@
     <h1 style="margin-top: 40px;">Container 布局容器</h1>
     <h2>用于布局的容器组件，方便快速搭建页面的基本结构：</h2>
 
-    <ul style="font-size:2rem">
+    <ul style="font-size:20px">
       <li>
         m-container：外层容器。当子元素中包含 m-header 或 m-footer
         时，全部子元素会垂直上下排列，否则会水平左右排列。
@@ -163,7 +163,7 @@ export default {};
 .m-aside,
 .m-main,
 .m-footer {
-  font-size: 3rem;
+  font-size: 30px;
   font-weight: bold;
   color: white;
 }

@@ -1,0 +1,188 @@
+// Prefix
+@css-prefix : m-;
+@css-prefix-iconfont : mIcon-;
+
+// Base
+@body-background-color: #fff;
+@font-family-base: "Helvetica Neue", Helvetica, "PingFang SC",
+  "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+@font-size-base : 14px;
+@font-size-small : 12px;
+@font-size-large : 16px;
+@line-height-base : 1.5;
+@line-height-computed : floor((@font-size-base * @line-height-base));
+@border-radius-base : 6px;
+@border-radius-small : 4px;
+
+// Padding
+@padding-lg: 24px;
+@padding-md: 16px;
+@padding-sm: 12px;
+@padding-xs: 8px;
+
+// Margin
+@margin-lg: 24px;
+@margin-md: 16px;
+@margin-sm: 12px;
+@margin-xs: 8px;
+
+// Shadow
+@shadow-color : rgba(0, 0, 0, .2);
+@shadow-base : @shadow-down;
+@shadow-card : 0 1px 1px 0 rgba(0,0,0,.1);
+@shadow-up : 0 -1px 6px @shadow-color;
+@shadow-down : 0 1px 6px @shadow-color;
+@shadow-left : -1px 0 6px @shadow-color;
+@shadow-right : 1px 0 6px @shadow-color;
+
+// Animation And Transition
+@animation-time : .3s;
+@animation-time-quick : .15s;
+@animation-time-slow : .5s;
+@transition-time : .3s;
+@transition-time-quick: 0.15s;
+@transition-time-slow: 0.5s;
+@ease-in-out : ease-in-out;
+
+// Colors
+/** 常用颜色 **/
+@default-color: #fff;
+@primary-color: #409eff;
+@success-color: #67c23a;
+@info-color: #909399;
+@warning-color: #e6a23c;
+@danger-color: #f56c6c;
+@lint-text-color: tint(@text-color, 20%);
+@text-color: #5c6161;
+@deep-text-color: shade(@text-color, 20%);
+@title-color: #17233d;
+@content-color: #515a6e;
+@sub-color: #808695;
+@disabled-color: #c5c8ce;
+@border-color: #dcdee2;
+@divier-color: #e8eaec;
+@background-color: #f8f8f9;
+/* 标准色 */
+@red: #e54d42;
+@orange: #f37b1d;
+@yellow: #fbbd08;
+@olive: #8dc63f;
+@green: #39b54a;
+@cyan: #1cbbb4;
+@blue: #0081ff;
+@purple: #6739b6;
+@mauve: #9c26b0;
+@pink: #e03997;
+@brown: #a5673f;
+@grey: #8799a3;
+@black: #333333;
+@darkGray: #666666;
+@gray: #aaaaaa;
+@ghostWhite: #f1f1f1;
+@white: #ffffff;
+/* 浅色 */
+@red-light: #fadbd9;
+@orange-light: #fde6d2;
+@yellow-light: #fef2ce;
+@olive-light: #e8f4d9;
+@green-light: #d7f0db;
+@cyan-light: #d2f1f0;
+@blue-light: #cce6ff;
+@purple-light: #e1d7f0;
+@mauve-light: #ebd4ef;
+@pink-light: #f9d7ea;
+@brown-light: #ede1d9;
+@grey-light: #e7ebed;
+/* 渐变色 */
+@gradual-red: linear-gradient(45deg, #f43f3b, #ec008c);
+@gradual-orange: linear-gradient(45deg, #ff9700, #ed1c24);
+@gradual-green: linear-gradient(45deg, #39b54a, #8dc63f);
+@gradual-purple: linear-gradient(45deg, #9000ff, #5e00ff);
+@gradual-pink: linear-gradient(45deg, #ec008c, #6739b6);
+@gradual-blue: linear-gradient(45deg, #0081ff, #1cbbb4);
+/* 阴影透明色 */
+@shadow-size: 6rpx 6rpx 8rpx;
+@red-shadow: rgba(204, 69, 59, 0.2);
+@orange-shadow: rgba(217, 109, 26, 0.2);
+@yellow-shadow: rgba(224, 170, 7, 0.2);
+@olive-shadow: rgba(124, 173, 55, 0.2);
+@green-shadow: rgba(48, 156, 63, 0.2);
+@cyan-shadow: rgba(28, 187, 180, 0.2);
+@blue-shadow: rgba(0, 102, 204, 0.2);
+@purple-shadow: rgba(88, 48, 156, 0.2);
+@mauve-shadow: rgba(133, 33, 150, 0.2);
+@pink-shadow: rgba(199, 50, 134, 0.2);
+@brown-shadow: rgba(140, 88, 53, 0.2);
+@grey-shadow: rgba(114, 130, 138, 0.2);
+@gray-shadow: rgba(114, 130, 138, 0.2);
+@black-shadow: rgba(26, 26, 26, 0.2);
+
+// Css Variables
+:root {
+  /** 白色 **/
+  --white: #ffffff;
+  /** 黑色 **/
+  --black: #000000;
+  /** 波斯菊 **/
+  --calliopsis: #ffc5cb;
+  /** 橘红 **/
+  --orenge-red: #d35400;
+  /** 深红 **/
+  --deep-red: #c0392b;
+  /** 浅灰蓝 **/
+  --light-blue: #88e6f0;
+  /** 天蓝 **/
+  --blue: #3498db;
+  /** 深蓝 **/
+  --deep-blue: #2980b9;
+  /** 普蓝 **/
+  --common-blue: #032d62;
+  /** 橘色 **/
+  --orange: #f39c12;
+  /** 灰色 **/
+  --gray: #bdc3c7;
+  /** 浅草绿 **/
+  --green: #2ecc71;
+  /** 浅蓝绿 **/
+  --light-blue-green: #1abc9c;
+  /** 蓝绿 **/
+  --blue-green: #16a085;
+  /** 黄绿 **/
+  --yellow-green: #7fc830;
+  /** 草绿 **/
+  --deep-green: #27ae60;
+  /**土黄 **/
+  --rhubarb: #f1c40f;
+  /** 紫罗兰 **/
+  --pink: #9b59b6;
+  /** 深紫 **/
+  --deep-pink: #8e44ad;
+  /** 暗灰 **/
+  --dark-gray: #2c3e50;
+  /** 亮灰 **/
+  --light-gray: #ecf0f1;
+  /** 默认 **/
+  --default: #fff;
+  /** 主要 **/
+  --primary: #409eff;
+  /** 成功 **/
+  --success: #67c23a;
+  /** 信息 **/
+  --info: #909399;
+  /** 警告 **/
+  --warning: #e6a23c;
+  /** 危险 **/
+  --danger: #f56c6c;
+  /** 文本 **/
+  --text: #5c6161;
+}
+
+// Button
+@button-default-hover-color: #ecf5ff;
+@button-default-border-color: #ddd;
+
+// Col
+@col-counter: 24;
+
+// Z-index
+@zindex-tooltip: 100;

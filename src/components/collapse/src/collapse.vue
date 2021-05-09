@@ -5,12 +5,23 @@
 </template>
 
 <script>
+import { jsonClone } from "@/utils/index.js";
+
 export default {
   name: "MCollapse",
 
   props: {
     value: {
       type: [Array, String]
+    },
+    simple: {
+      type: Boolean,
+      default: false
+    },
+    //手风琴模式 每次至多打开一个面板
+    accordion: {
+      type: Boolean,
+      default: false
     }
   },
 
@@ -24,6 +35,10 @@ export default {
     value(newValue) {
       this.currentValue = newValue;
     }
+  },
+
+  mounted() {
+    this.setActive();
   },
 
   methods: {
@@ -67,8 +82,24 @@ export default {
       });
     },
 
+    closePanel(exclude = []) {
+      const panels = this.getPanels();
+      panels.forEach(p => {
+        if (exclude.indexOf(p.getName()) === -1) {
+          p.handleClose();
+        }
+      });
+    },
+
     handlePanelClick(name, isOpen) {
       name = name.toString();
+
+      if (this.accordion) {
+        if (isOpen) {
+          this.closePanel([name]);
+          this.currentValue = [];
+        }
+      }
 
       const activeKey = this.getActiveKey(),
         index = activeKey.indexOf(name);
@@ -88,21 +119,10 @@ export default {
 
       if (isModify) {
         this.currentValue = activeKey;
-        this.$emit("input", JSON.parse(JSON.stringify(activeKey)));
-        this.$emit("on-change", JSON.parse(JSON.stringify(activeKey)));
+        this.$emit("input", jsonClone(activeKey));
+        this.$emit("on-change", jsonClone(activeKey));
       }
     }
-  },
-
-  mounted() {
-    this.setActive();
   }
 };
 </script>
-
-<style scoped>
-.m-collapse {
-  border-radius: 5px;
-  overflow: hidden;
-}
-</style>

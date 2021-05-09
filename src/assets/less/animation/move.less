@@ -1,0 +1,114 @@
+@list: top, bottom, left, right;
+@len: length(@list);
+
+.move-motion(@prefix,@i) when (@i<=@len) {
+  .move-motion(@prefix, @i+1);
+  .make-motion(@keyframesName, @keyframesName);
+
+  @item: extract(@list, @i);
+  @keyframesName: ~"@{prefix}-@{item}";
+
+  .@{prefix}-@{item}-enter-active {
+    animation-timing-function: @ease-in-out;
+    animation-fill-mode: forwards;
+  }
+  .@{prefix}-@{item}-leave-active {
+    animation-timing-function: @ease-in-out;
+    animation-fill-mode: forwards;
+  }
+}
+
+.move-motion(move, 1);
+
+@keyframes move-left-in {
+  from {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+
+  to {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+}
+
+@keyframes move-left-out {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes move-right-in {
+  from {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+@keyframes move-right-out {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 0;
+  }
+}
+
+@keyframes move-top-in {
+  from {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+}
+
+@keyframes move-top-out {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+}
+
+@keyframes move-bottom-in {
+  from {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+
+  to {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}
+
+@keyframes move-bottom-out {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+}

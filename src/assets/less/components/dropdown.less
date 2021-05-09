@@ -1,0 +1,31 @@
+.m-dropdown {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+
+  &-menu {
+    min-height: 30px;
+    padding: 10px 0;
+    background: @white;
+    list-style: none;
+    white-space: pre;
+    cursor: inherit;
+
+    .m-dropdown-item {
+      text-align: center;
+      padding: @padding-sm @padding-lg;
+      font-size: 16px;
+      color: @deep-text-color;
+      font-weight: 500;
+
+      &[data-disabled*="false"]:hover {
+        background-color: #eee;
+        color: @primary-color;
+      }
+    }
+  }
+
+  .popper {
+    padding: 0;
+  }
+}

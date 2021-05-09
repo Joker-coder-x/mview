@@ -1,0 +1,55 @@
+//禁止元素内部内容被选中
+.unselect {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+//将鼠标指针显示成禁用状态
+.is-disabled,
+.is-disabled:hover,
+.is-disabled:active,
+.is-disabled:focus {
+  cursor: url("./ico/disabled.ico"), auto !important;
+  opacity: 0.6;
+}
+
+.color(@color;@background) {
+  color: @color;
+  background-color: @background;
+}
+
+.primary {
+  .color(@white, @primary-color);
+}
+
+.success {
+  .color(@white, @success-color);
+}
+
+.info {
+  .color(@white, @info-color);
+}
+
+.warning {
+  .color(@white, @warning-color);
+}
+
+.danger {
+  .color(@white, @danger-color);
+}
+
+.clearfix {
+  zoom: 1;
+  &::after {
+    clear: both;
+    display: block;
+    visibility: hidden;
+    line-height: 0;
+    height: 0;
+    content: "";
+  }
+}

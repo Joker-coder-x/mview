@@ -12,9 +12,9 @@ module.exports = {
   plugins: ["vue"],
   rules: {
     //强制使用分号
-    "semi": "error",
+    semi: "error",
     //缩进
-    "indent": ["warn", 2, { SwitchCase: 1 }],
-    "max-len": [0, 80]
+    indent: ["warn", 2, { SwitchCase: 1 }],
+    "max-len": [0, 100]
   }
 };

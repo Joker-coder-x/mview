@@ -16,8 +16,6 @@
           <router-link to="/rate" tag="li">Rate评分</router-link>
           <router-link to="/switch" tag="li">Switch开关</router-link>
           <router-link to="/popper" tag="li">Popper弹出框</router-link>
-          <router-link to="/popper" tag="li">Popper弹出框</router-link>
-          <router-link to="/popper" tag="li">Popper弹出框</router-link>
         </ul>
       </m-aside>
       <m-main class="demo-main"><router-view></router-view></m-main>
@@ -31,23 +29,25 @@ export default {
 };
 </script>
 
-<style>
-@import url("assets/css/index.css");
+<style lang="less">
+@import "assets/less/index.less";
 
-body {
-  margin: 0px;
+body,
+ul {
+  margin: 0;
   padding: 0;
 }
 
 .nav {
   list-style: none;
   height: 100vh;
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
   position: fixed;
   left: 0;
   top: 0;
   width: inherit;
+  background-color: #2c3e50;
 }
 
 .nav::-webkit-scrollbar {
@@ -55,21 +55,19 @@ body {
 }
 
 .nav > li {
-  padding: 2rem;
+  padding: 20px;
   border-bottom: 1px solid rgb(73, 70, 70);
   cursor: pointer;
-  font-size: 1.5rem;
-  background-color: #2c3e50;
+  font-size: 15px;
+
   color: white;
   margin: 0;
   font-weight: bold;
-  font-family: -apple-system, Helvetica Neue, Segoe UI, Roboto, Oxygen, Ubuntu,
-    Cantarell, Open Sans, sans-serif;
   text-transform: uppercase;
 }
 
 .nav > li:hover {
-  background-color: var(--primary);
+  background-color: @primary-color;
   color: white;
 }
 

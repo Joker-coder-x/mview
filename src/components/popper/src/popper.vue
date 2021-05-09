@@ -1,5 +1,5 @@
 <template>
-  <div class="m-popper">
+  <div class="m-popper" v-trigger:[trigger].esc="handleHidden">
     <div ref="reference" aria-describedby="tooltip">
       <slot name="reference"></slot>
       <transition name="fade">
@@ -27,6 +27,8 @@
 import { createPopper } from "@popperjs/core";
 //导入工具函数
 import { no, $on, $off } from "@/utils/index.js";
+//导入自定义指令
+import Trigger from "./directives/index.js";
 
 //定义常量
 const PLACEMENT_LIST = [
@@ -50,6 +52,10 @@ const TRIGGER_LIST = ["hover", "click", "focus", "manual"];
 
 export default {
   name: "MPopper",
+
+  directives: {
+    Trigger
+  },
 
   props: {
     //可通过v-model控制
@@ -104,7 +110,6 @@ export default {
     //popper隐藏延迟，单位为毫秒
     closeDelay: {
       type: Number,
-      default: 200,
       validator(value) {
         return value >= 0;
       }
@@ -122,7 +127,8 @@ export default {
       closeDelayFlag: false,
       //打开延迟
       openDelayFlag: false,
-      isInput: false
+      isInput: false,
+      currentCloseDelay: this.closeDelay
     };
   },
 
@@ -173,11 +179,22 @@ export default {
         this.__PopperJS__.update();
         newVal ? this.$emit("show") : this.$emit("hide");
       });
+    },
+
+    closeDelay(newVal) {
+      this.currentCloseDelay = newVal;
+    }
+  },
+
+  created() {
+    if (this.closeDelay == undefined) {
+      this.currentCloseDelay = this.trigger === TRIGGER_LIST[0] ? 200 : 0;
     }
   },
 
   mounted() {
-    const referenceElm = this.$refs.reference;
+    const referenceElm = this.$refs.reference,
+      popper = this.$refs.popper;
 
     switch (this.trigger) {
       case TRIGGER_LIST[0]: //hover
@@ -185,7 +202,11 @@ export default {
         $on(referenceElm, "mouseleave", this.handleHidden);
         break;
       case TRIGGER_LIST[1]: //click
-        $on(referenceElm, "click", this.handleReferenceClick);
+        $on(referenceElm, "click", e => {
+          if (!popper.contains(e.target)) {
+            this.handleReferenceClick();
+          }
+        });
         break;
       case TRIGGER_LIST[2]: //focus
         $on(referenceElm, "mousedown", this.handleFocus);
@@ -322,7 +343,7 @@ export default {
         if (!this.closeDelayFlag) {
           this.doHidden();
         }
-      }, this.closeDelay);
+      }, this.currentCloseDelay);
     },
 
     handleTrigger() {
@@ -355,48 +376,48 @@ export default {
 </script>
 
 <style lang="less">
-.m-popper {
-  display: inline-block;
-}
+// .m-popper {
+//   display: inline-block;
+// }
 
-.tooltip {
-  background-color: white;
-  border-radius: 4px;
-  padding: 20px;
-  box-shadow: 0 0 10px #d1d1d1;
-}
+// .tooltip {
+//   background-color: white;
+//   border-radius: 4px;
+//   padding: 20px;
+//   box-shadow: 0 0 10px #d1d1d1;
+// }
 
-.arrow,
-.arrow::before {
-  position: absolute;
-  width: 8px;
-  height: 8px;
-  background: inherit;
-}
+// .arrow,
+// .arrow::before {
+//   position: absolute;
+//   width: 8px;
+//   height: 8px;
+//   background: inherit;
+// }
 
-.arrow {
-  visibility: hidden;
-}
+// .arrow {
+//   visibility: hidden;
+// }
 
-.arrow::before {
-  visibility: visible;
-  content: "";
-  transform: rotate(45deg);
-}
+// .arrow::before {
+//   visibility: visible;
+//   content: "";
+//   transform: rotate(45deg);
+// }
 
-.tooltip[data-popper-placement^="top"] > .arrow {
-  bottom: -4px;
-}
+// .tooltip[data-popper-placement^="top"] > .arrow {
+//   bottom: -4px;
+// }
 
-.tooltip[data-popper-placement^="bottom"] > .arrow {
-  top: -4px;
-}
+// .tooltip[data-popper-placement^="bottom"] > .arrow {
+//   top: -4px;
+// }
 
-.tooltip[data-popper-placement^="left"] > .arrow {
-  right: -4px;
-}
+// .tooltip[data-popper-placement^="left"] > .arrow {
+//   right: -4px;
+// }
 
-.tooltip[data-popper-placement^="right"] > .arrow {
-  left: -4px;
-}
+// .tooltip[data-popper-placement^="right"] > .arrow {
+//   left: -4px;
+// }
 </style>

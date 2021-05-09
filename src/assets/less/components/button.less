@@ -1,0 +1,134 @@
+.button-size(@padding;@font-size;) {
+  padding: @padding;
+  font-size: @font-size;
+}
+
+.button-color(@color;@background;@border) {
+  color: @color;
+  background-color: @background;
+  border-color: @border;
+  border: if(iscolor(@border), 1px solid @border, none);
+}
+
+.m-button--default() {
+  .button-color(@text-color, @white, @button-default-border-color);
+  &:hover {
+    .button-color(
+      @primary-color,
+      @button-default-hover-color,
+      shade(@button-default-hover-color, 10%)
+    );
+  }
+
+  &:active {
+    .button-color(@primary-color, @button-default-hover-color, @primary-color);
+  }
+}
+
+.m-button--primary() {
+  .button-color(@white, @primary-color, none);
+  &:hover {
+    .button-color(@white, tint(@primary-color, 20%), none);
+  }
+  &:active {
+    .button-color(@white, shade(@primary-color, 20%), none);
+  }
+}
+
+.m-button--success() {
+  .button-color(@white, @success-color, none);
+  &:hover {
+    .button-color(@white, tint(@success-color, 20%), none);
+  }
+  &:active {
+    .button-color(@white, shade(@success-color, 20%), none);
+  }
+}
+
+.m-button-info() {
+  .button-color(@white, @info-color, none);
+  &:hover {
+    .button-color(@white, tint(@info-color, 20%), none);
+  }
+  &:active {
+    .button-color(@white, shade(@info-color, 20%), none);
+  }
+}
+
+.m-button--warning() {
+  .button-color(@white, @warning-color, none);
+  &:hover {
+    .button-color(@white, tint(@warning-color, 20%), none);
+  }
+  &:active {
+    .button-color(@white, shade(@warning-color, 20%), none);
+  }
+}
+
+.m-button-danger() {
+  .button-color(@white, @danger-color, none);
+  &:hover {
+    .button-color(@white, tint(@danger-color, 20%), none);
+  }
+  &:active {
+    .button-color(@white, shade(@danger-color, 20%), none);
+  }
+}
+
+.m-button {
+  outline: none;
+  transition: 0.1s;
+  cursor: pointer;
+  white-space: nowrap;
+  line-height: 1;
+  text-align: center;
+  font-weight: 500;
+  margin: 0;
+  border-radius: 4px;
+  //size
+  .button-size(10px 20px, 14px);
+  &--huge {
+    .button-size(30px 60px, 30px);
+  }
+  &--large {
+    .button-size(20px 40px, 20px);
+  }
+  &--medium {
+    .button-size(7px 15px, 11px);
+  }
+  &--small {
+    .button-size(5px 10px, 9px);
+  }
+  &--mini {
+    .button-size(4px 6px, 7px);
+  }
+  //type
+  &-default {
+    .m-button--default();
+  }
+  &-primary {
+    .m-button--primary();
+  }
+  &-success {
+    .m-button--success();
+  }
+  &-info {
+    .m-button-info();
+  }
+  &-warning {
+    .m-button--warning();
+  }
+  &-danger {
+    .m-button-danger();
+  }
+}
+
+//Button的形状
+.m-button.circle {
+  border-radius: 50%;
+  padding: 12px;
+}
+
+.m-button.round {
+  border-radius: 20px;
+}

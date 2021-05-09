@@ -110,37 +110,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-.m-slots-item {
-  background-color: #34495e;
-  height: 100%;
-  flex: 1;
-  margin-right: 2rem;
-  position: relative;
-  overflow: hidden;
-  padding: 0;
-  border-radius: 5px;
-}
-
-.m-slots-item:last-child {
-  margin-right: 0;
-}
-
-.m-slots-item__content {
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  height: 400%;
-  width: 100%;
-  padding: 0;
-  margin: 0;
-}
-
-.m-slots-item__content .content-child {
-  flex: 1;
-  cursor: pointer;
-}
-</style>
