@@ -108,24 +108,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-.m-scratch-card {
-  position: relative;
-  display: inline-block;
-}
-
-.m-scratch-card-canvas {
-  position: absolute;
-  left: 0;
-  top: 0;
-  z-index: 99;
-  cursor: pointer;
-}
-
-.m-scratch-card-result {
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-}
-</style>

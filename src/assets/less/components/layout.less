@@ -1,0 +1,76 @@
+.m-row {
+  display: flex;
+  flex-wrap: wrap;
+
+  .m-col {
+    box-sizing: border-box;
+    background: transparent !important;
+  }
+
+  .m-col-loop(@index) when (@index > 0) {
+    .m-col-loop(@index - 1);
+
+    @rate: (@index / 24) * 100%;
+    .m-col-span-@{index} {
+      flex: 0 0 @rate;
+      max-width: @rate;
+      display: block;
+    }
+    .m-col-push-@{index} {
+      position: relative;
+      left: @rate;
+    }
+    .m-col-pull-@{index} {
+      position: relative;
+      right: @rate;
+    }
+    .m-col-offset-@{index} {
+      margin-left: @rate;
+    }
+  }
+  .m-col-loop(@col-counter);
+}
+
+/**主轴部分**/
+.is-justify-start,
+.is-justify-flex-start {
+  justify-content: flex-start;
+}
+.is-justify-end,
+.is-justify-flex-end {
+  justify-content: flex-end;
+}
+.is-justify-center {
+  justify-content: center;
+}
+.is-justify-around,
+.is-justify-space-around {
+  justify-content: space-around;
+}
+.is-justify-between,
+.is-justify-space-between {
+  justify-content: space-between;
+}
+.is-justify-evenly,
+.is-justify-space-evenly {
+  justify-content: space-evenly;
+}
+
+/**交叉轴部分**/
+.is-align-start,
+.is-align-flex-start {
+  align-items: flex-start;
+}
+.is-align-end,
+.is-align-flex-end {
+  align-items: flex-end;
+}
+.is-align-center {
+  align-items: center;
+}
+.is-align-baseline {
+  align-items: baseline;
+}
+.is-align-stretch {
+  align-items: stretch;
+}

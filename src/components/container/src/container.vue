@@ -33,23 +33,19 @@ export default {
 };
 </script>
 
-<style>
-.m-container {
-  display: flex;
-}
+<style lang="less">
+// .m-container {
+//   display: flex;
 
-.is-vertical {
-  flex-direction: column;
-}
+//   & > .m-aside + .m-main,
+//   & > .m-aside + &,
+//   & > .m-main,
+//   & > & {
+//     flex: 8;
+//   }
+// }
 
-/* .m-container > .m-aside {
-   flex: 2;
-} */
-
-.m-container > .m-aside + .m-main,
-.m-container > .m-aside + .m-container,
-.m-container > .m-main,
-.m-container > .m-container {
-  flex: 8;
-}
+// .is-vertical {
+//   flex-direction: column;
+// }
 </style>

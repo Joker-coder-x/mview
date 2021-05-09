@@ -1,6 +1,7 @@
 <template>
   <div>
-    <h2>按钮</h2>
+    <h1>Button</h1>
+    <h3>基本用法</h3>
     <div class="demo-button">
       <m-button>default</m-button>
       <m-button type="primary">primary</m-button>
@@ -9,7 +10,7 @@
       <m-button type="warning">warning</m-button>
       <m-button type="danger">danger</m-button>
     </div>
-    <h2>圆角按钮</h2>
+    <h3>圆角按钮</h3>
     <div class="demo-button">
       <m-button :round="true">default</m-button>
       <m-button type="primary" :round="true">primary</m-button>
@@ -18,7 +19,7 @@
       <m-button type="warning" :round="true">warning</m-button>
       <m-button type="danger" :round="true">danger</m-button>
     </div>
-    <h2>圆形按钮</h2>
+    <h3>圆形按钮</h3>
     <div class="demo-button">
       <m-button :circle="true" icon="home"></m-button>
       <m-button type="primary" :circle="true" icon="home"></m-button>
@@ -27,6 +28,8 @@
       <m-button type="warning" :circle="true" icon="home"></m-button>
       <m-button type="danger" :circle="true" icon="home"></m-button>
     </div>
+    <h3>禁用状态</h3>
+    <m-button type="primary" disabled>禁用</m-button>
   </div>
 </template>
 

@@ -3,7 +3,6 @@ import { isFunction, deleteProp, $on, $off } from "@/utils/index.js";
 const EVENT_NAMES = ["focus", "blur"];
 
 const bind = function(el, binding) {
-  console.error("focus", el);
   const handleFocus = e => {
     if (binding.value.disabled) return;
     if (binding.expression) {

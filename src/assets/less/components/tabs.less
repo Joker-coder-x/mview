@@ -1,0 +1,122 @@
+@tabs-defalut-border-color: #eee;
+@tabs-line-border-width: 3px;
+@tabs-card-border-width: 1px;
+
+.make-type(@className,@type,@color, @background) {
+  @{className}.line@{type} {
+    color: @color;
+    border-bottom: @tabs-line-border-width solid $color;
+  }
+  @{className}.card@{type} {
+    color: @color;
+    border-bottom: @tabs-card-border-width solid @white;
+    border-top: @tabs-card-border-width solid $color;
+    border-left: $border-top;
+    border-right: $border-top;
+    background-color: @white;
+  }
+}
+
+.make-active-type(@className,@background:@white) {
+  .make-type(@className, ~".active", @primary-color, @background);
+  .make-type(@className, ~".active--primary", @primary-color, @background);
+  .make-type(@className, ~".active--success", @success-color, @background);
+  .make-type(@className, ~".active--info", @info-color, @background);
+  .make-type(@className, ~".active--warning", @warning-color, @background);
+  .make-type(@className, ~".active--danger", @danger-color, @background);
+}
+
+.m-tabs {
+  overflow: hidden;
+
+  &-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+    padding: 0;
+    margin-top: 0;
+    transition: all @transition-time linear;
+
+    .make-active-type(~".m-tabs-bar-item");
+
+    &-warp {
+      display: flex;
+    }
+
+    &-item {
+      display: inline-block;
+      height: 100%;
+      padding: 5px 20px;
+      text-align: center;
+      white-space: nowrap;
+      margin-right: 4px;
+      position: relative;
+      font-weight: 500;
+      color: @title-color;
+      background-color: @white;
+      cursor: pointer;
+      transition: all @transition-time ease-in-out;
+
+      &:last-child {
+        margin-right: 0 !important;
+      }
+    }
+
+    &-item.card {
+      border-top-left-radius: @border-radius-small;
+      border-top-right-radius: @border-radius-small;
+      border: @tabs-card-border-width solid #ddd;
+      top: @tabs-card-border-width;
+      background-color: @background-color;
+    }
+
+    &-item.line {
+      border-bottom: 3px solid @tabs-defalut-border-color;
+      padding: @padding-xs @padding-lg;
+      transition: all @transition-time linear;
+      top: @tabs-line-border-width;
+    }
+
+    &-remove {
+      margin-left: 5px;
+      &:hover {
+        background: #ddd;
+        color: white;
+        padding: 2px;
+        border-radius: 50%;
+        cursor: pointer;
+      }
+    }
+
+    &-add {
+      font-weight: bold;
+      padding: 5px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      color: #bbb;
+      &:hover {
+        color: @primary-color;
+        border: 1px solid @primary-color;
+        cursor: pointer;
+      }
+    }
+  }
+
+  &-bar.line {
+    border-bottom: @tabs-line-border-width solid @tabs-defalut-border-color;
+  }
+
+  &-bar.card {
+    border-bottom: @tabs-card-border-width solid @tabs-defalut-border-color;
+  }
+
+  &-content {
+    display: flex;
+    width: inherit;
+    overflow: hidden;
+    &__pane {
+      width: 100%;
+    }
+  }
+}

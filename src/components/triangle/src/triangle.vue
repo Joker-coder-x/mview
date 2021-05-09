@@ -115,9 +115,3 @@ export default {
   }
 };
 </script>
-
-<style>
-.m-triangle {
-  display: inline-block;
-}
-</style>

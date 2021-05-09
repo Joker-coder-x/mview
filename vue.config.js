@@ -1,9 +1,9 @@
 module.exports = {
   chainWebpack: config => {
     config.module
-      .rule('image')
+      .rule("image")
       .test(/\.ico$/)
-      .use('url-loader')
-      .loader('url-loader')
+      .use("url-loader")
+      .loader("url-loader");
   }
-}
+};

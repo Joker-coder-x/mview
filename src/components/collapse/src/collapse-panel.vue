@@ -1,34 +1,46 @@
 <template>
   <div class="m-collapse-panel" @click="handlePanelClick">
-    <div class="header" @click="handleOpen">
+    <div
+      :class="['header', headerClass ? headerClass : '']"
+      @click="handleToggle"
+      :style="getHeaderStyle"
+    >
       <m-icon
         :name="iconName"
         class="icon"
-        style="margin-right:10px;"
         v-if="!hideArrow && arrowPosition === 'front'"
+        style="margin-right:5px;"
       ></m-icon>
-      <slot></slot>
+      <div class="content"><slot></slot></div>
       <m-icon
         :name="iconName"
         class="icon"
         v-if="!hideArrow && arrowPosition === 'behind'"
       ></m-icon>
     </div>
-    <transition name="fold">
-      <div class="body" v-if="isOpen" :style="getBodyStyle">
-        <slot name="content"></slot>
+    <m-collapse-transition>
+      <div v-show="isOpen" class="body">
+        <div :style="getBodyStyle" :class="['box', boxClass ? boxClass : '']">
+          <slot name="content"></slot>
+        </div>
       </div>
-    </transition>
+    </m-collapse-transition>
   </div>
 </template>
 
 <script>
 import MIcon from "../../icon/index.js";
+import MCollapseTransition from "../../../transition/collapse-transition.js";
 
 const ARROW_POSITION_LIST = ["front", "behind"];
 
 export default {
   name: "MCollapsePanel",
+
+  components: {
+    MIcon,
+    MCollapseTransition
+  },
 
   props: {
     hideArrow: {
@@ -45,7 +57,9 @@ export default {
     name: {
       type: [String, Number],
       default: ""
-    }
+    },
+    headerClass: String,
+    boxClass: String
   },
 
   data() {
@@ -65,10 +79,10 @@ export default {
 
   computed: {
     getBodyStyle() {
-      const border = "1px solid #ccc";
+      const border = "1px solid #ddd";
       const styleObj = {
-        borderLeft: border,
-        borderRight: border
+        borderLeft: this.$parent.simple ? "none" : border,
+        borderRight: this.$parent.simple ? "none" : border
       };
 
       if (this.isLastChild) {
@@ -76,7 +90,32 @@ export default {
       }
 
       return styleObj;
+    },
+
+    getHeaderStyle() {
+      const styleObj = {};
+
+      if (!this.isLastChild) {
+        styleObj.borderBottom = this.isOpen
+          ? "1px solid #ddd"
+          : "0px solid #ddd";
+      }
+
+      if (this.$parent.simple) {
+        styleObj.backgroundColor = "white";
+        styleObj.borderLeft = "none";
+        styleObj.borderRight = "none";
+        if (this.isOpen) {
+          styleObj.borderBottom = "0px solid #ddd";
+        }
+      }
+
+      return styleObj;
     }
+  },
+
+  mounted() {
+    this.$parent.setActive();
   },
 
   methods: {
@@ -96,43 +135,13 @@ export default {
       this.$parent.handlePanelClick(this.getName(), this.isOpen);
     },
 
-    handleOpen() {
+    handleToggle() {
       this.isOpen = !this.isOpen;
+    },
+
+    handleClose() {
+      this.isOpen = false;
     }
-  },
-
-  mounted() {
-    this.$parent.setActive();
-  },
-
-  components: {
-    MIcon
   }
 };
 </script>
-
-<style scoped>
-.m-collapse-panel {
-  cursor: pointer;
-  font-size: 15px;
-  color: var(--text);
-}
-
-.m-collapse-panel .header {
-  background-color: #f7f7f7;
-  border: 1px solid #ccc;
-  padding: 10px;
-}
-
-.m-collapse-panel .body {
-  padding: 15px;
-}
-
-.fold-enter-active {
-  animation: fold-vertical-in 0.05s reverse;
-}
-
-.fold-leave-active {
-  animation: fold-vertical-in 0.05s;
-}
-</style>

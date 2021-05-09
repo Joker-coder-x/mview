@@ -1,21 +1,24 @@
 <template>
-  <div class="container">
-    <div class="header">
+  <div :class="['m-slots', disabled ? 'is-disabled' : '']">
+    <div class="m-slots-header">
       <slot name="header"><h1>每周一无限会员日</h1></slot>
     </div>
-    <div class="main">
+    <div class="m-slots-main">
       <slot></slot>
     </div>
-    <div class="footer">
-      <slot name="footer"
-        ><button class="start-btn" @click="handleRun">开始抽奖</button></slot
-      >
+    <div class="m-slots-footer">
+      <slot name="footer">
+        <button class="start-btn" @click="handleRun" :disabled="disabled">
+          开始抽奖
+        </button>
+      </slot>
     </div>
   </div>
 </template>
 
 <script>
 import { genrateRunTimesSet } from "./utils.js";
+import { deleteProp, $on, $off, jsonClone } from "@/utils/index.js";
 
 export default {
   name: "MSlots",
@@ -40,6 +43,11 @@ export default {
     incrementTimesRange: {
       type: Number,
       default: 10
+    },
+    //是否禁用
+    disabled: {
+      type: Boolean,
+      default: false
     }
   },
 
@@ -57,16 +65,47 @@ export default {
     };
   },
 
+  mounted() {
+    if (this.customStartTargetSelector) {
+      const startTarget = document.querySelector(
+        this.customStartTargetSelector
+      );
+
+      if (startTarget && startTarget instanceof HTMLElement) {
+        const handler = () => this.handleRun();
+
+        $on(startTarget, "click", handler);
+
+        this.__startTarget__ = startTarget;
+        this.__startTargetHandler__ = handler;
+      }
+    }
+  },
+
+  beforeDestroy() {
+    if (this.__startTarget__) {
+      $off(this.__startTarget__, "click", this.__startTargetHandler__);
+
+      this.__startTarget__ = null;
+      this.__startTargetHandler__ = null;
+
+      deleteProp(this, "__startTarget__");
+      deleteProp(this, "__startTargetHandler__");
+    }
+  },
+
   methods: {
     getItems() {
       return this.$children.filter(item => item.$options.name == "MSlotsItem");
     },
 
     handleComplete() {
-      this.$emit("complete", JSON.stringify(this.completeList));
+      this.$emit("complete", jsonClone(this.completeList));
     },
 
     handleRun() {
+      if (this.disabled) return;
+
       const vm = this;
       if (vm.isComplete) return;
 
@@ -84,102 +123,6 @@ export default {
 
       items.forEach(item => item.handleMove());
     }
-  },
-
-  mounted() {
-    if (this.customStartTargetSelector) {
-      const startTarget = document.querySelector(
-        this.customStartTargetSelector
-      );
-
-      if (startTarget && startTarget instanceof HTMLElement) {
-        const handler = () => this.handleRun();
-
-        startTarget.addEventListener("click", handler);
-
-        this.__startTarget__ = startTarget;
-        this.__startTargetHandler__ = handler;
-      }
-    }
-  },
-
-  beforeDestroy() {
-    if (this.__startTarget__) {
-      this.__startTarget__.removeEventListener(
-        "click",
-        this.__startTargetHandler__
-      );
-      this.__startTarget__ = null;
-      this.__startTargetHandler__ = null;
-
-      Reflect.deleteProperty(this, "__startTarget__");
-      Reflect.deleteProperty(this, "__startTargetHandler__");
-    }
   }
 };
 </script>
-
-<style scoped>
-.container {
-  min-width: 20rem;
-  min-height: 10rem;
-  background-color: #2c3e50;
-  color: white;
-  border-radius: 2rem;
-  box-shadow: 0 0 2rem rgb(122, 118, 118);
-  padding: 2rem;
-  display: grid;
-  color: #debf8a;
-  grid-template-rows: repeat(3, 1fr);
-  grid-template-areas: "header" "main" "footer";
-}
-
-.header {
-  grid-area: header;
-  display: grid;
-  place-items: center;
-}
-
-.header > h1 {
-  font-size: 4rem;
-  letter-spacing: 3px;
-}
-
-.main {
-  grid-area: main;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  position: relative;
-  background-color: #1b1b1b;
-  padding: 1rem;
-  border-radius: 1rem;
-}
-
-.footer {
-  grid-area: footer;
-  display: grid;
-  place-items: center;
-}
-
-.footer > .start-btn {
-  padding: 2rem 4rem;
-  border-radius: 5rem;
-  font-weight: bold;
-  font-size: 2rem;
-  background-color: rgb(216, 230, 166);
-  color: rgb(90, 83, 20);
-  letter-spacing: 3px;
-  outline: none;
-  border: none;
-  cursor: pointer;
-}
-
-.footer > .start-btn:hover {
-  background-color: rgb(238, 252, 190);
-}
-
-.footer > .start-btn:active {
-  background-color: rgb(171, 187, 112);
-}
-</style>

@@ -1,18 +1,10 @@
+@import url("./normalize.css");
 @import url("./icon.css");
 @import url("./animation.css");
 @import url("./commom.css");
 html {
   font-size: 62.5%;
   box-sizing: border-box;
-}
-
-aside,
-main,
-footer,
-header,
-ul {
-  margin: 0;
-  padding: 0;
 }
 
 

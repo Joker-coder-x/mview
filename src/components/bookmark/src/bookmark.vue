@@ -205,27 +205,24 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="less">
 .m-bookmark {
   display: inline-block;
   position: relative;
   text-align: center;
-  padding: 1rem;
+  padding: 10px;
   white-space: nowrap;
   cursor: pointer;
   font-weight: 520;
   letter-spacing: 2px;
-}
-
-.m-bookmark:hover {
-  opacity: 0.8;
-}
-
-.m-bookmark .before {
-  position: absolute !important;
-}
-
-.m-bookmark .after {
-  position: absolute !important;
+  &:hover {
+    opacity: 0.8;
+  }
+  .before {
+    position: absolute !important;
+  }
+  .after {
+    position: absolute !important;
+  }
 }
 </style>

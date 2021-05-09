@@ -329,37 +329,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-.m-rate {
-  display: inline-block;
-  cursor: pointer;
-  font-size: 20px;
-}
-
-.m-rate .m-rate-item {
-  color: #e9e9e9;
-  position: relative;
-  font-size: 20px;
-  line-height: 20px;
-  padding: 0;
-  left: 0;
-  top: 0;
-  display: inline-block;
-  transition: 0.15s;
-}
-
-.m-rate .m-rate-item:hover {
-  transform: scale(0.85);
-}
-
-.m-rate .m-rate-item .star-after {
-  display: inline-block;
-  position: absolute;
-  left: 0;
-  top: 0;
-  padding: 0;
-  overflow: hidden;
-  transition: 0.08s;
-}
-</style>

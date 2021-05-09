@@ -1,12 +1,13 @@
 <template>
   <div class="m-tabs">
-    <dir class="m-tabs-bar">
-      <div>
+    <dir :class="['m-tabs-bar', type]">
+      <div class="m-tabs-bar-warp">
         <div
           v-for="item in navList"
           :key="item.name"
           :class="getTabCls(item)"
-          @click="handleTabBarItemClick(item.name)"
+          @click="handleTabBarItemClick(item)"
+          :style="getTabsStyle(item)"
         >
           {{ item.label }}
           <i
@@ -46,6 +47,20 @@ export default {
     editable: {
       type: Boolean,
       default: false
+    },
+    type: {
+      type: String,
+      default: "line"
+    },
+    activeColor: String,
+    inActiveColor: String,
+    activeType: {
+      type: String,
+      default: "primary"
+    },
+    itemIndent: {
+      type: Number,
+      default: 5
     }
   },
 
@@ -54,6 +69,15 @@ export default {
       navList: [],
       currentIndex: this.value
     };
+  },
+
+  watch: {
+    value(newValue) {
+      this.currentIndex = newValue;
+    },
+    currentIndex(newVal) {
+      this.updatePaneStatus(newVal);
+    }
   },
 
   methods: {
@@ -66,27 +90,54 @@ export default {
     getTabCls(item) {
       return [
         "m-tabs-bar-item",
+        this.type,
         {
-          active: item.name == this.currentIndex
+          [`active--${this.activeType}`]: item.name == this.currentIndex,
+          "is-disabled": item.disabled
         }
       ];
+    },
+
+    getTabsStyle(item) {
+      const styObj = {},
+        { activeColor, inActiveColor } = this;
+      if (item.name == this.currentIndex) {
+        styObj.color = activeColor;
+        styObj.borderColor = activeColor;
+      } else if (inActiveColor) {
+        styObj.color = inActiveColor;
+      }
+
+      if (this.type == "card") {
+        styObj.marginRight = `${this.itemIndent}px`;
+      }
+
+      return styObj;
     },
 
     //更新NavBar
     updateNav() {
       this.navList = [];
 
-      this.getTabs().forEach((pane, index) => {
+      const tabs = this.getTabs();
+
+      tabs.forEach((pane, index) => {
         this.navList.push({
           label: pane.label,
-          name: pane.name || index
+          name: pane.getName() || index,
+          disabled: pane.disabled
         });
 
-        if (!pane.name) pane.name = index;
+        if (pane.getName() === "") {
+          pane.setName(index.toString());
+        }
         if (index === 0) {
           if (!this.currentIndex) {
-            this.currentIndex = pane.name || index;
+            this.currentIndex = pane.getName() || index;
           }
+        }
+        if (tabs.length === 1 && !pane.disabled) {
+          this.currentIndex = pane.getName() || index;
         }
       });
 
@@ -111,7 +162,7 @@ export default {
         }
       }
 
-      this.handleTabBarItemClick(nextItem ? nextItem.name : undefined);
+      this.handleTabBarItemClick(nextItem ? nextItem : undefined, true);
     },
 
     //更新插槽pane的显示状态
@@ -122,10 +173,18 @@ export default {
     },
 
     //监听tabBarItem的点击
-    handleTabBarItemClick(name) {
+    handleTabBarItemClick(item, systemCall = false) {
+      if (!item) return;
+
+      const { name, disabled } = item;
+
+      if (disabled) return;
+
       this.currentIndex = name;
+      if (!systemCall) {
+        this.$emit("on-click", this.currentIndex);
+      }
       this.$emit("change", this.currentIndex);
-      this.$emit("on-click", this.currentIndex);
     },
 
     //监听增加按钮点击
@@ -134,87 +193,9 @@ export default {
     },
 
     //增加移除按钮点击
-    handleRemoveItemClick(item) {
-      this.$emit("edit", "remove", item.name);
-    }
-  },
-
-  watch: {
-    value(newValue) {
-      this.currentIndex = newValue;
-    },
-    currentIndex(newVal) {
-      this.updatePaneStatus(newVal);
+    handleRemoveItemClick({ name }) {
+      this.$emit("edit", "remove", name);
     }
   }
 };
 </script>
-
-<style scoped>
-.m-tabs {
-  overflow: hidden;
-}
-
-.m-tabs-bar {
-  box-sizing: border-box;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0;
-  border-bottom: 1px solid #eee;
-}
-
-.m-tabs-bar-item {
-  display: inline-block;
-  height: 100%;
-  padding: 5px 20px;
-  text-align: center;
-  white-space: nowrap;
-  border: 1px solid #ddd;
-  margin-right: 1rem;
-  position: relative;
-  top: 1px;
-  font-weight: bold;
-  color: var(--text);
-  background-color: var(--white);
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
-  cursor: pointer;
-}
-
-.m-tabs-bar-item:last-child {
-  margin-right: 0;
-}
-
-.m-tabs-bar-item.active {
-  color: var(--blue);
-  border-bottom: 1px solid var(--white);
-  border-top: 2px solid var(--blue);
-}
-
-.m-tabs-bar-remove {
-  margin-left: 0.5rem;
-}
-
-.m-tabs-bar-remove:hover {
-  background: #ddd;
-  color: white;
-  padding: 2px;
-  border-radius: 50%;
-  cursor: pointer;
-}
-
-.m-tabs-bar-add {
-  font-weight: bold;
-  padding: 5px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  color: #bbb;
-}
-
-.m-tabs-bar-add:hover {
-  color: var(--blue);
-  border: 1px solid var(--primary);
-  cursor: pointer;
-}
-</style>
