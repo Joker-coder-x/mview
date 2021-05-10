@@ -80,4 +80,16 @@ ul {
 .demo-main {
   padding: 30px;
 }
+
+.title-text {
+  color: #1c2438;
+}
+
+.content-text {
+  color: #495060;
+}
+
+.sub-text {
+  color: #80848f;
+}
 </style>
