@@ -31,9 +31,9 @@ export default {
   data() {
     return {
       imgList: [
-        require("@/assets/images/01.jpeg"),
-        require("@/assets/images/02.jpeg"),
-        require("@/assets/images/04.jpeg")
+        require("../../assets/images/01.jpeg"),
+        require("../../assets/images/02.jpeg"),
+        require("../../assets/images/04.jpeg")
       ]
     };
   },

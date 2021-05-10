@@ -30,7 +30,7 @@ export default {
 </script>
 
 <style lang="less">
-@import "assets/less/index.less";
+@import "../src/style/index.less";
 
 body,
 ul {

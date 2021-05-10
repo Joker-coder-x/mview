@@ -1,6 +1,7 @@
 {
   "name": "mview",
   "version": "0.1.0",
+  "main": "./examples/mian.js",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve --open",

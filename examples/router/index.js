@@ -4,31 +4,31 @@ import VueRouter from "vue-router";
 Vue.use(VueRouter);
 
 const Layout = () =>
-  import ("@/pages/layout/index.vue");
+  import ("../pages/layout/index.vue");
 const Button = () =>
-  import ("@/pages/button/index.vue");
+  import ("../pages/button/index.vue");
 const Bookmark = () =>
-  import ("@/pages/bookmark/index.vue");
+  import ("../pages/bookmark/index.vue");
 const Checkbox = () =>
-  import ("@/pages/checkbox/index.vue");
+  import ("../pages/checkbox/index.vue");
 const Dropdown = () =>
-  import ("@/pages/dropdown/index.vue");
+  import ("../pages/dropdown/index.vue");
 const ScratchCard = () =>
-  import ("@/pages/scratch-card/index.vue");
+  import ("../pages/scratch-card/index.vue");
 const Slots = () =>
-  import ("@/pages/slots/index.vue");
+  import ("../pages/slots/index.vue");
 const Tabs = () =>
-  import ("@/pages/tabs/index.vue");
+  import ("../pages/tabs/index.vue");
 const Verification = () =>
-  import ("@/pages/verification/index.vue");
+  import ("../pages/verification/index.vue");
 const Collapse = () =>
-  import ("@/pages/collapse/index.vue");
+  import ("../pages/collapse/index.vue");
 const Rate = () =>
-  import ("@/pages/rate/index.vue");
+  import ("../pages/rate/index.vue");
 const Switch = () =>
-  import ("@/pages/switch/index.vue");
+  import ("../pages/switch/index.vue");
 const Popper = () =>
-  import ("@/pages/popper/index.vue");
+  import ("../pages/popper/index.vue");
 
 const routes = [
   //rotues
