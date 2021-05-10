@@ -1,12 +1,17 @@
 <template>
   <div>
-    <h2>刮刮乐</h2>
-    <div class="demo-strach-card">
-      <m-scratch-card></m-scratch-card>
-      <m-scratch-card maskColor="green"
-        ><h1>就你个臭咸鱼还想中奖？做梦吧!</h1></m-scratch-card
-      >
-      <m-scratch-card maskColor="#aaa"><h1>谢谢惠顾</h1></m-scratch-card>
+    <h1>ScratchCard 刮刮乐</h1>
+
+    <h3 class="title-text">基础用法</h3>
+    <div><m-scratch-card>谢谢惠顾</m-scratch-card></div>
+
+    <h3 class="title-text">自定义颜色</h3>
+    <p class="sub-text">通过mask-color属性配置</p>
+    <div style="margin-bottom:30px;">
+      <m-scratch-card mask-color="green"><h1>谢谢惠顾1</h1></m-scratch-card>
+    </div>
+    <div>
+      <m-scratch-card mask-color="blue"><h1>谢谢惠顾2</h1></m-scratch-card>
     </div>
   </div>
 </template>
@@ -15,10 +20,4 @@
 export default {};
 </script>
 
-<style scoped>
-.demo-strach-card {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-}
-</style>
+<style></style>

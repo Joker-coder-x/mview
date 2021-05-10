@@ -1,15 +1,17 @@
 <template>
   <div>
     <h2>验证组件</h2>
-    <div><m-verification-exp @test="handleTest"></m-verification-exp></div>
-    <div>
+    <div style="margin-bottom:20px;">
+      <m-verification-exp @test="handleTest"></m-verification-exp>
+    </div>
+    <div style="margin-bottom:20px;">
       <m-verification-exp
         @test="handleTest"
         :isCaseSensitive="true"
         :config="{ backgroundColor: 'blue', fontColor: 'white' }"
       ></m-verification-exp>
     </div>
-    <div>
+    <div style="margin-bottom:20px;">
       <m-verification-exp
         @test="handleTest"
         type="exp"

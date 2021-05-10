@@ -10,9 +10,7 @@
       >您的浏览器版本过低，暂不支持canvas，请更新您的浏览器。</canvas
     >
     <div class="m-scratch-card-result">
-      <slot>
-        <h1>就你个臭屌丝还想中奖？下辈子吧!</h1>
-      </slot>
+      <slot></slot>
     </div>
   </div>
 </template>
