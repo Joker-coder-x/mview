@@ -64,7 +64,6 @@ export const $once = function(el, event, fn) {
   $on(el, event, listener);
 };
 
-/* istanbul ignore next */
 export function hasClass(el, cls) {
   if (!el || !cls) return false;
   if (cls.indexOf(" ") !== -1)
@@ -76,7 +75,6 @@ export function hasClass(el, cls) {
   }
 }
 
-/* istanbul ignore next */
 export function addClass(el, cls) {
   if (!el) return;
   var curClass = el.className;
@@ -97,7 +95,6 @@ export function addClass(el, cls) {
   }
 }
 
-/* istanbul ignore next */
 export function removeClass(el, cls) {
   if (!el || !cls) return;
   var classes = cls.split(" ");
