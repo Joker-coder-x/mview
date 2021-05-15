@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <m-container>
+    <m-container class="demo-container">
       <m-aside width="250px" class="demo-aside">
         <ul class="nav">
           <router-link to="/button" tag="li">button</router-link>
@@ -16,6 +16,10 @@
           <router-link to="/rate" tag="li">Rate评分</router-link>
           <router-link to="/switch" tag="li">Switch开关</router-link>
           <router-link to="/popper" tag="li">Popper弹出框</router-link>
+          <router-link to="/table" tag="li">Table表格</router-link>
+          <router-link to="/scroll-container" tag="li"
+            >Scroll滚动容器</router-link
+          >
         </ul>
       </m-aside>
       <m-main class="demo-main"><router-view></router-view></m-main>
@@ -36,6 +40,10 @@ body,
 ul {
   margin: 0;
   padding: 0;
+}
+
+body {
+  padding-left: 250px;
 }
 
 .nav {
@@ -79,7 +87,19 @@ ul {
 
 .demo-main {
   padding: 30px;
+  max-width: 100%;
+  // overflow: hidden;
 }
+
+.demo-aside {
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+// .demo-container {
+//   padding-left: 250px;
+// }
 
 .title-text {
   color: #1c2438;

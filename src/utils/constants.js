@@ -38,4 +38,4 @@ export const TRIGGER_TYPES = {
 
 export const CSS_PREFIX = "m-";
 
-export const CSS_PREFIX_ICONFONT = "mIcon";
+export const CSS_PREFIX_ICONFONT = "mIcon-";

@@ -15,6 +15,6 @@ module.exports = {
     semi: "error",
     //缩进
     indent: ["warn", 2, { SwitchCase: 1 }],
-    "max-len": [0, 100]
+    maxLen: [0, 100]
   }
 };

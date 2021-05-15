@@ -74,6 +74,12 @@ export function hasClass(el, cls) {
   }
 }
 
+/**
+ * @todo 为dom元素添加class
+ * @param {*} el
+ * @param {*} cls
+ * @returns
+ */
 export function addClass(el, cls) {
   if (!el) return;
   var curClass = el.className;
@@ -94,6 +100,12 @@ export function addClass(el, cls) {
   }
 }
 
+/**
+ * @todo 为dom元素移除class
+ * @param {*} el
+ * @param {*} cls
+ * @returns
+ */
 export function removeClass(el, cls) {
   if (!el || !cls) return;
   var classes = cls.split(" ");
