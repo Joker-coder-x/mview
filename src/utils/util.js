@@ -118,7 +118,7 @@ export function ownKeys(obj) {
  * @param  {Object} obj
  * @return {Array}
  * */
-export function has(obj, prop) {
+export function hasOwn(obj, prop) {
   return Object.prototype.hasOwnProperty.call(obj, prop);
 }
 
@@ -183,27 +183,12 @@ export function mergeOptions(src, dest, exculde = []) {
   return obj;
 }
 
-/*
-  summary:
-  将css的属性值，转变为rgb格式的对像
-
-  "#fff"  -> 0xfff
-  长度为4， 一个字符占用代表一个属性, 0x10 == 16（2的4次方，即1后面4个0) === 1 0000, 那么一个f 为 1111
-  占位符为 mask = 1111, 用于占住后四位(&用于保留后四位的值), 其他高位清零
-  每一次遍历都从后四位開始，所以先获取到 b值，难后移动4位，在获取到 g, 在移动4位，获取到 r
-  获取b属性：
-  0000 1111 1111 1111 & 0000 0000 0000 1111 (这里仅仅列举出16位, 正常的是32位)
-  0000 0000 0000 1111 b保存到变量 c
-  0000 1111 1111 1111 >> 4, -> 0000 0000 1111 1111
-  获取g属性
-  0000 0000 1111 1111 & 0000 0000 0000 1111
-  0000 0000 0000 1111 获得到g的值，保存到变量 c
-  在移四位，获取r的值
-
-  "ffffff" -> 0xffffff
-  长度为8。每两个字符代表一个函数 0xff = 1111 1111
-  每次获取后8位，刚好代表颜色值
-*/
+/**
+ * @todo 将css的属性值，转变为rgb格式的对像
+ * @param {*} color
+ * @param {*} a
+ * @returns
+ */
 export function fromHex(color, a = 1) {
   var t = {},
     bits = color.length == 4 ? 4 : 8,
@@ -222,7 +207,7 @@ export function fromHex(color, a = 1) {
 }
 
 /**
- * @description  得到一个更亮或者更暗的值，通过一个给定的十六进制颜色值（比如#F06D06,或者没有#）
+ * @todo  得到一个更亮或者更暗的值，通过一个给定的十六进制颜色值（比如#F06D06,或者没有#）
  * @param {type} col
  * */
 export function lightenDarkenColor(col, amt) {
@@ -253,12 +238,61 @@ export function lightenDarkenColor(col, amt) {
 }
 
 //什么事情都不做
-export function no() {}
+export function noop() {}
 
+/**
+ * @todo JSON拷贝
+ * @param {*} obj
+ * @returns
+ */
 export function jsonClone(obj) {
   if (!isObject(obj)) {
     return obj;
   } else {
     return JSON.parse(JSON.stringify(obj));
   }
+}
+
+/**
+ * @todo 深拷贝
+ * @param {*} src
+ * @returns {*}
+ */
+export function deepClone(src) {
+  if (!isObject(src) || isReg(src)) {
+    return src;
+  }
+
+  let obj;
+
+  if (isDate(src)) {
+    obj = new Date();
+    obj.setTime(src.getTime());
+  } else if (src instanceof Map) {
+    obj = new Map();
+    for (const [key, value] of src.entries()) {
+      obj.set(key, deepClone(value));
+    }
+  } else if (src instanceof Set) {
+    obj = new Set();
+    for (const [key, value] of src.entries()) {
+      obj.add(key, deepClone(value));
+    }
+  } else if (src instanceof Promise) {
+    obj = new Promise((resolve, reject) => {
+      src.then(
+        v => resolve(v),
+        r => reject(r)
+      );
+    });
+  } else {
+    obj = Array.isArray(src) ? [] : {};
+
+    Reflect.ownKeys(src).forEach(key => {
+      const value = src[key];
+      obj[key] = isObject(value) ? deepClone(value) : value;
+    });
+  }
+
+  return obj;
 }

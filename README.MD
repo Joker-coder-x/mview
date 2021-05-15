@@ -10,6 +10,8 @@
 
 --- |-- directives (全局指令)
 
+--- |-- mixins (混入)
+
 --- |-- style (全局样式)
 
 --- |-- transition (过渡组件)

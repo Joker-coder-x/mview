@@ -26,6 +26,9 @@ import Render from "./components/render/index.js";
 import Rate from "./components/rate/index.js";
 import Collapse from "./components/collapse/index.js";
 import CollapsePanel from "./components/collapse-panel/index.js";
+import Table from "./components/table/index.js";
+import TableColumn from "./components/table-column/index.js";
+import ScrollContainer from "./components/scroll-container/index.js";
 
 const components = [
   BookMark,
@@ -56,7 +59,10 @@ const components = [
   Render,
   Rate,
   Collapse,
-  CollapsePanel
+  CollapsePanel,
+  Table,
+  TableColumn,
+  ScrollContainer
 ];
 
 const install = function(Vue) {

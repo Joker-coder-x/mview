@@ -29,6 +29,10 @@ const Switch = () =>
   import ("../pages/switch/index.vue");
 const Popper = () =>
   import ("../pages/popper/index.vue");
+const Table = () =>
+  import ("../pages/table/index.vue");
+const ScrollContainer = () =>
+  import ("../pages/scroll-container/index.vue");
 
 const routes = [
   //rotues
@@ -129,6 +133,20 @@ const routes = [
       title: "popper弹出框"
     },
     component: Popper
+  },
+  {
+    path: "/table",
+    meta: {
+      title: "table表格"
+    },
+    component: Table
+  },
+  {
+    path: "/scroll-container",
+    meta: {
+      title: "scroll滚动容器"
+    },
+    component: ScrollContainer
   }
 ];
 
@@ -138,7 +156,9 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, form, next) => {
-  window.document.title = to.meta.title;
+  if (window) {
+    window.document.title = to.meta.title;
+  }
   next();
 });
 

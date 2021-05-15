@@ -26,7 +26,7 @@
 //导入Lib
 import { createPopper } from "@popperjs/core";
 //导入工具函数
-import { no, $on, $off, NATIVE_EVENT_NAMES } from "@/utils/index.js";
+import { noop, $on, $off, NATIVE_EVENT_NAMES } from "@/utils/index.js";
 //导入自定义指令
 import Trigger from "./directives/index.js";
 
@@ -300,7 +300,7 @@ export default {
 
       //Promise/A+规定中：如果用户没有显示定义reject处理函数，并且在Promise解决流程过程中发送错误的话将会显式的抛出一个错误
       //所有这里为了避免将这个不必要的reason打印在控制台，使用一个什么也不做的函数占位
-      state.then(undefined, no);
+      state.then(undefined, noop);
     },
 
     doShow() {
