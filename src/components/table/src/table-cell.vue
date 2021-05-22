@@ -12,8 +12,8 @@
             'asc',
             {
               'sort-active':
-                tableInstance.sortColumn === column.prop &&
-                tableInstance.sortType === 'asc'
+                tableRoot.sortColumn === column.prop &&
+                tableRoot.sortType === 'asc'
             }
           ]"
           @click="handleIconClick('asc')"
@@ -24,30 +24,46 @@
             'desc',
             {
               'sort-active':
-                tableInstance.sortColumn === column.prop &&
-                tableInstance.sortType === 'desc'
+                tableRoot.sortColumn === column.prop &&
+                tableRoot.sortType === 'desc'
             }
           ]"
           @click="handleIconClick('desc')"
         ></icon>
       </span>
     </template>
+    <template v-else-if="renderType === RENDER_TYPE_LIST[2]">
+      <table-slot
+        :row="row"
+        :column="column"
+        :index="row.$index"
+        :slot-render="column.slotRender"
+      ></table-slot>
+    </template>
+    <template v-else-if="renderType === RENDER_TYPE_LIST[3]">
+      <table-slot
+        :column="column"
+        :slot-render="column.headerSlotRender"
+      ></table-slot>
+    </template>
   </div>
 </template>
 
 <script>
 import { StyleMixin } from "@/mixins/index.js";
+
+import TableSlot from "./table-slot.vue";
 import Icon from "../../icon/index.js";
 
-const RENDER_TYPE_LIST = ["nomal", "head", "sortable"],
+const RENDER_TYPE_LIST = ["nomal", "head", "slot", "headerSlot"],
   PREFIX = "table-cell";
 
 export default {
   name: "MTableCell",
 
-  components: { Icon },
+  components: { Icon, TableSlot },
 
-  inject: ["tableInstance"],
+  inject: ["tableRoot"],
 
   mixins: [StyleMixin],
 
@@ -70,17 +86,17 @@ export default {
   computed: {
     getCellStyle() {
       return {
-        padding: this.tableInstance.cellpadding
+        padding: this.tableRoot.cellpadding
       };
     }
   },
 
   methods: {
     handleIconClick(orderType) {
-      const tableInstance = this.tableInstance;
+      const tableRoot = this.tableRoot;
       orderType === "asc"
-        ? tableInstance.handleSortByAsc(this.column)
-        : tableInstance.handleSortByDesc(this.column);
+        ? tableRoot.handleSortByAsc(this.column)
+        : tableRoot.handleSortByDesc(this.column);
     }
   }
 };

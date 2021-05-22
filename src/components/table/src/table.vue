@@ -38,7 +38,6 @@
           ></table-body>
         </div>
       </div>
-
       <template v-if="fiexdLeftColumns.length > 0">
         <div :class="getFixedLeftClass" :style="getFixedLeftStyle">
           <table-head
@@ -84,6 +83,7 @@
         </div>
       </template>
     </div>
+    <div :class="'table-slot' | prefixClass"><slot></slot></div>
   </div>
 </template>
 
@@ -119,7 +119,7 @@ export default {
 
   provide() {
     return {
-      tableInstance: this
+      tableRoot: this
     };
   },
 
@@ -420,7 +420,9 @@ export default {
 
       if (defaultSlot && Array.isArray(defaultSlot)) {
         defaultSlot.forEach((vnode, index) => {
-          const componentOptions = vnode.componentOptions;
+          const componentOptions = vnode.componentOptions,
+            componentInstance = vnode.componentInstance;
+
           if (componentOptions && componentOptions.tag === "m-table-column") {
             const propData = componentOptions.propsData,
               columnOpts = {
@@ -429,12 +431,21 @@ export default {
                 className: propData.className || "",
                 width: propData.width || "",
                 _index: index,
+                slotRender:
+                  componentInstance && componentInstance.$scopedSlots.default
+                    ? componentInstance.$scopedSlots.default
+                    : null,
+                headerSlotRender:
+                  componentInstance && componentInstance.$scopedSlots.header
+                    ? componentInstance.$scopedSlots.header
+                    : null,
                 sortable:
                   (hasOwn(propData, "sortable") && propData.sortable === "") ||
                   propData.sortable === true
                     ? true
                     : false
               };
+
             columns.push(columnOpts);
 
             if (hasOwn(propData, "fixed")) {
@@ -589,7 +600,7 @@ export default {
       this.sortColumn = prop;
       this.sortType = "asc";
 
-      this.$emit("sort-change", { order: this.sortType });
+      this.$emit("sort-change", { prop: prop, order: this.sortType });
     },
 
     handleSortByDesc({ prop }) {
@@ -600,7 +611,7 @@ export default {
       this.sortColumn = prop;
       this.sortType = "desc";
 
-      this.$emit("sort-change", { order: this.sortType });
+      this.$emit("sort-change", { prop: prop, order: this.sortType });
     }
   }
 };

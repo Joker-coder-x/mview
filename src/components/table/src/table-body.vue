@@ -21,7 +21,12 @@
           :key="idx"
           :class="getTdClass(row, col)"
         >
-          <table-cell :row="row" :column="col"></table-cell>
+          <table-cell
+            :row="row"
+            :column="col"
+            :render-type="col.slotRender ? 'slot' : 'nomal'"
+          >
+          </table-cell>
         </td>
       </tr>
     </tbody>
@@ -30,6 +35,7 @@
 
 <script>
 import { hasOwn } from "@/utils/index.js";
+
 import { StyleMixin } from "@/mixins/index.js";
 import TableMixin from "./mixin.js";
 

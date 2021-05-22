@@ -8,16 +8,19 @@
     <colgroup>
       <col v-for="col in columns" :width="setCellWidth(col)" :key="col.prop" />
       <col
-        v-if="tableInstance.isShowScrollYBar"
-        :width="tableInstance.scrollYBarWidth"
+        v-if="tableRoot.isShowScrollYBar"
+        :width="tableRoot.scrollYBarWidth"
       />
     </colgroup>
     <thead>
       <tr>
         <th v-for="item in columns" :key="item.prop">
-          <table-cell :column="item" renderType="head"></table-cell>
+          <table-cell
+            :column="item"
+            :render-type="item.headerSlotRender ? 'headerSlot' : 'head'"
+          ></table-cell>
         </th>
-        <th v-if="tableInstance.isShowScrollYBar"></th>
+        <th v-if="tableRoot.isShowScrollYBar"></th>
       </tr>
     </thead>
   </table>
@@ -37,7 +40,7 @@ export default {
     TableCell
   },
 
-  inject: ["tableInstance"],
+  inject: ["tableRoot"],
 
   props: {
     columns: {
