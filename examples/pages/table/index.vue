@@ -195,6 +195,33 @@
     <m-button type="primary" style="marginTop:20px;" @click="handleExportTable"
       >导出表格</m-button
     >
+
+    <h3>自定义列模板</h3>
+    <p>通过 Scoped slot 可以获取到 row, column, $index 等数据。</p>
+    <m-table :data="data" border stripe>
+      <m-table-column prop="name" label="姓名">
+        <template v-slot:default="{ column, $index }">
+          <m-button type="primary">{{ column.label }}+{{ $index }}</m-button>
+        </template>
+      </m-table-column>
+      <m-table-column prop="age" label="年龄"></m-table-column>
+      <m-table-column prop="hobby" label="爱好"></m-table-column>
+    </m-table>
+
+    <h3>自定义表头</h3>
+    <p>通过设置 Scoped slot 来自定义表头。</p>
+    <m-table :data="data" border stripe>
+      <m-table-column prop="name" label="姓名">
+        <template v-slot:default="{ column, $index }">
+          <m-button type="primary">{{ column.prop }}+{{ $index }}</m-button>
+        </template>
+        <template v-slot:header="scope">
+          <m-button>{{ scope.column.label }}</m-button>
+        </template>
+      </m-table-column>
+      <m-table-column prop="age" label="年龄"></m-table-column>
+      <m-table-column prop="hobby" label="爱好"></m-table-column>
+    </m-table>
   </div>
 </template>
 

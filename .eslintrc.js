@@ -11,9 +11,7 @@ module.exports = {
   },
   plugins: ["vue"],
   rules: {
-    //强制使用分号
     semi: "error",
-    //缩进
     indent: ["warn", 2, { SwitchCase: 1 }],
     maxLen: [0, 100]
   }
