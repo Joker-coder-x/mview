@@ -155,6 +155,46 @@
       <m-table-column prop="date4" label="日期" width="240"></m-table-column>
       <m-table-column prop="date5" label="日期" width="240"></m-table-column>
     </m-table>
+
+    <h3>可排序的表格</h3>
+    <m-table
+      :data="data"
+      border
+      stripe
+      :default-sort="{ prop: 'name', order: 'asc' }"
+    >
+      <m-table-column prop="name" label="姓名" sortable></m-table-column>
+      <m-table-column prop="age" label="年龄" sortable></m-table-column>
+      <m-table-column prop="hobby" label="爱好"></m-table-column>
+    </m-table>
+
+    <h3>导出表格</h3>
+    <m-table :data="data5" stripe ref="exportTable">
+      <m-table-column prop="name" label="姓名" width="120"></m-table-column>
+      <m-table-column
+        prop="age"
+        label="年龄"
+        fixed="left"
+        width="120"
+      ></m-table-column>
+      <m-table-column
+        prop="hobby"
+        label="爱好"
+        fixed="right"
+        width="120"
+      ></m-table-column>
+      <m-table-column prop="gender" label="性别" width="120"></m-table-column>
+      <m-table-column prop="type" label="类型" width="180"></m-table-column>
+      <m-table-column prop="road" label="分路" width="180"></m-table-column>
+      <m-table-column prop="date" label="日期" width="240"></m-table-column>
+      <m-table-column prop="date2" label="日期" width="240"></m-table-column>
+      <m-table-column prop="date3" label="日期" width="240"></m-table-column>
+      <m-table-column prop="date4" label="日期" width="240"></m-table-column>
+      <m-table-column prop="date5" label="日期" width="240"></m-table-column>
+    </m-table>
+    <m-button type="primary" style="marginTop:20px;" @click="handleExportTable"
+      >导出表格</m-button
+    >
   </div>
 </template>
 
@@ -544,6 +584,13 @@ export default {
     handleRowClassName({ index }) {
       if (index > 2) {
         return "primary";
+      }
+    },
+
+    handleExportTable() {
+      const exportTable = this.$refs.exportTable;
+      if (exportTable) {
+        exportTable.exportCsv();
       }
     }
   }

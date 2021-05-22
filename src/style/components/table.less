@@ -76,12 +76,47 @@
     }
   }
 
-  &-cell {
+  .m-table-cell {
     width: 100%;
     height: 100%;
     overflow: hidden !important;
     white-space: normal;
     text-overflow: ellipsis;
+
+    span:first-of-type {
+      vertical-align: middle;
+    }
+
+    &__sort {
+      display: inline-flex;
+      flex-direction: column;
+      vertical-align: middle;
+      padding-left: @padding-xxs;
+      font-weight: bold;
+      line-height: 1;
+
+      .asc {
+        vertical-align: bottom;
+        transform: translateY(25%);
+        &:hover {
+          cursor: pointer;
+          color: shade(@primary-color, 30%);
+        }
+      }
+
+      .desc {
+        transform: translateY(-25%);
+        vertical-align: top;
+        &:hover {
+          cursor: pointer;
+          color: shade(@primary-color, 30%);
+        }
+      }
+
+      .sort-active {
+        color: @primary-color;
+      }
+    }
   }
 }
 

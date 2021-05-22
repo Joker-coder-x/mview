@@ -10,15 +10,15 @@
         overflow-y="hidden"
       >
         <div
-          ref="head-wrap"
           :class="'table-head-wrap' | prefixClass"
           :style="getTableHeadContainerStyle"
+          ref="head-wrap"
         >
           <table-head
             :columns="excludeFixedColumns(currentColumns)"
-            ref="head"
             :columnsWidth="columnsWidth"
             :styleObject="{ width: tableBodyScrollWidth + 'px' }"
+            ref="head"
           ></table-head>
         </div>
       </scroll-container>
@@ -26,7 +26,7 @@
         ref="body-wrap"
         :class="getTableBodyWrapClass"
         :style="{ height: height }"
-        @scroll="handleTableScroll"
+        @scroll="handleTableScroll($event, true)"
       >
         <div :style="getTableBodyContainerStyle">
           <table-body
@@ -49,7 +49,8 @@
             v-model="scrollFixedLeftInfo"
             :width="fixedLeftWidth + 'px'"
             :height="tableWrapClientHeight + 'px'"
-            @scroll="handleFixedTableScroll"
+            @scroll="handleTableScroll"
+            prevent
           >
             <table-body
               :data="currentData"
@@ -70,7 +71,8 @@
             v-model="scrollFixedRightInfo"
             :width="fixedRightWidth + 'px'"
             :height="tableWrapClientHeight + 'px'"
-            @scroll="handleFixedTableScroll"
+            @scroll="handleTableScroll"
+            prevent
           >
             <table-body
               :data="currentData"
@@ -86,9 +88,17 @@
 </template>
 
 <script>
-import { jsonClone, hasOwn, $on, $off, deleteProp } from "@/utils/index.js";
-
 import elementResizeDetectorMaker from "element-resize-detector";
+
+import {
+  jsonClone,
+  hasOwn,
+  $on,
+  $off,
+  deleteProp,
+  ExportHelper
+} from "@/utils/index.js";
+import { filterCsvData } from "./util.js";
 
 import { StyleMixin } from "@/mixins/index.js";
 
@@ -145,7 +155,9 @@ export default {
     showHeader: {
       type: Boolean,
       default: true
-    }
+    },
+    //默认排序方式
+    defaultSort: Object
   },
 
   data() {
@@ -182,7 +194,10 @@ export default {
       scrollFixedRightInfo: {
         scrollLeft: 0,
         scrollTop: 0
-      }
+      },
+      preventScrollEvent: false,
+      sortColumn: "",
+      sortType: ""
     };
   },
 
@@ -308,6 +323,10 @@ export default {
     this.makeColumns();
     this.makeData();
 
+    if (this.defaultSort) {
+      this.initSort();
+    }
+
     if (this.rowClassName) {
       this.currentData.forEach((row, index) => {
         let className = this.rowClassName({ row: jsonClone(row), index });
@@ -342,17 +361,41 @@ export default {
   },
 
   methods: {
-    setScrollY(scrollInfo) {
+    initSort() {
+      const defaultSort = this.defaultSort;
+      if (defaultSort) {
+        let { prop = "", order = "" } = defaultSort;
+
+        if (
+          typeof prop === "string" &&
+          typeof order === "string" &&
+          ["asc", "desc"].indexOf(order.trim()) > -1
+        ) {
+          order.trim() === "asc"
+            ? this.handleSortByAsc({ prop: prop })
+            : this.handleSortByDesc({ prop: prop });
+        }
+      }
+    },
+
+    setScroll(scrollInfo, isSetScrollLeft) {
       const scrollElm = this.$refs["body-wrap"];
       if (scrollElm) {
-        if (scrollElm.scrollTop !== scrollInfo.scrollTop) {
+        if (scrollElm.scrollTop != scrollInfo.scrollTop) {
           scrollElm.scrollTop = scrollInfo.scrollTop;
         }
 
-        if (this.scrollFixedLeftInfo.scrollTop !== scrollInfo.scrollTop) {
+        if (
+          isSetScrollLeft &&
+          this.scrollHeadInfo.scrollLeft != scrollInfo.scrollLeft
+        ) {
+          this.scrollHeadInfo.scrollLeft = scrollInfo.scrollLeft;
+        }
+
+        if (this.scrollFixedLeftInfo.scrollTop != scrollInfo.scrollTop) {
           this.scrollFixedLeftInfo.scrollTop = scrollInfo.scrollTop;
         }
-        if (this.scrollFixedRightInfo.scrollTop !== scrollInfo.scrollTop) {
+        if (this.scrollFixedRightInfo.scrollTop != scrollInfo.scrollTop) {
           this.scrollFixedRightInfo.scrollTop = scrollInfo.scrollTop;
         }
       }
@@ -385,20 +428,21 @@ export default {
                 label: propData.label || "",
                 className: propData.className || "",
                 width: propData.width || "",
-                _index: index
+                _index: index,
+                sortable:
+                  (hasOwn(propData, "sortable") && propData.sortable === "") ||
+                  propData.sortable === true
+                    ? true
+                    : false
               };
             columns.push(columnOpts);
 
             if (hasOwn(propData, "fixed")) {
               const fixed = propData.fixed;
-              if (fixed === true) {
+              if (fixed === "" || fixed === "left") {
                 fiexdLeftColumns.push(columnOpts);
-              } else if (typeof propData.fixed === "string") {
-                if (fixed === "left") {
-                  fiexdLeftColumns.push(columnOpts);
-                } else if (fixed === "right") {
-                  fiexdRightColumns.push(columnOpts);
-                }
+              } else if (fixed === "right") {
+                fiexdRightColumns.push(columnOpts);
               }
 
               this.fiexdLeftColumns = fiexdLeftColumns;
@@ -421,6 +465,24 @@ export default {
           return false;
         }
       });
+    },
+
+    exportCsv(params = { isHeader: true }) {
+      if (params.filename) {
+        if (params.filename.indexOf(".csv") === -1) {
+          params.filename += ".csv";
+        }
+      } else {
+        params.filename = "table.csv";
+      }
+
+      const exportData = filterCsvData(
+        this.currentColumns,
+        this.currentData,
+        params.isHeader || false
+      );
+
+      ExportHelper.exportCsv(exportData, { header: false }, params.filename);
     },
 
     handleResize() {
@@ -498,19 +560,18 @@ export default {
       });
     },
 
-    handleTableScroll({ target }) {
+    handleTableScroll({ target }, isSetScrollLeft = false) {
       requestAnimationFrame(() => {
-        if (target.devCall) {
-          target.devCall = false;
-          return;
-        }
-
         const scrollLeft = target.scrollLeft,
           scrollTop = target.scrollTop;
 
-        this.scrollHeadInfo.scrollLeft = scrollLeft;
-        this.scrollFixedLeftInfo.scrollTop = scrollTop;
-        this.scrollFixedRightInfo.scrollTop = scrollTop;
+        this.setScroll(
+          {
+            scrollTop,
+            scrollLeft
+          },
+          isSetScrollLeft
+        );
 
         this.isShowFixedLeftShadow = scrollLeft === 0 ? false : true;
         this.isShowFixedRightShadow =
@@ -520,10 +581,26 @@ export default {
       });
     },
 
-    handleFixedTableScroll({ target }) {
-      this.setScrollY({
-        scrollTop: target.scrollTop
+    handleSortByAsc({ prop }) {
+      this.currentData.sort((a, b) => {
+        return a[prop] > b[prop] ? 1 : -1;
       });
+
+      this.sortColumn = prop;
+      this.sortType = "asc";
+
+      this.$emit("sort-change", { order: this.sortType });
+    },
+
+    handleSortByDesc({ prop }) {
+      this.currentData.sort((a, b) => {
+        return a[prop] < b[prop] ? 1 : -1;
+      });
+
+      this.sortColumn = prop;
+      this.sortType = "desc";
+
+      this.$emit("sort-change", { order: this.sortType });
     }
   }
 };
