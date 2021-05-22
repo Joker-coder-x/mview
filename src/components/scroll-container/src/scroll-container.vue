@@ -66,6 +66,11 @@ export default {
       validator(value) {
         return OVERFLOW_VALUES.indexOf(value.trim()) > -1;
       }
+    },
+
+    prevent: {
+      type: Boolean,
+      default: false
     }
   },
 
@@ -73,7 +78,8 @@ export default {
     return {
       currentValue: this.value,
       currentElementWidth: 0,
-      currentElementHeight: 0
+      currentElementHeight: 0,
+      currentPrevent: false
     };
   },
 
@@ -130,6 +136,7 @@ export default {
       deep: true,
       immediate: true,
       handler(value) {
+        this.currentPrevent = true;
         if (this.scrollElm) {
           this.scrollElm.scrollLeft = value.scrollLeft;
           this.scrollElm.scrollTop = value.scrollTop;
@@ -156,6 +163,13 @@ export default {
   methods: {
     handleScroll(e) {
       const target = e.target;
+
+      if (this.prevent) {
+        if (this.currentPrevent) {
+          this.currentPrevent = false;
+          return;
+        }
+      }
 
       this.currentScrollLeft = target.scrollLeft;
       this.currentScrollTop = target.scrollTop;

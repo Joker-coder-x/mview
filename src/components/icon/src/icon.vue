@@ -1,5 +1,5 @@
 <template>
-  <i :class="name | prefixIcon"></i>
+  <i :class="name | prefixIcon" @click="$emit('click', $event)"></i>
 </template>
 
 <script>

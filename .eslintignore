@@ -1,2 +1,4 @@
-/src/*/lib
-/lib
+/node_modules/*
+/src/utils/export-helper.js
+/src/components/verification-exp/src/lib/*
+/src/components/verification-silder/src/lib/*

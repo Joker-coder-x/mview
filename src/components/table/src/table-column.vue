@@ -17,6 +17,8 @@ export default {
       default: ""
     },
 
+    width: [String, Number],
+
     className: {
       type: String,
       default: ""
@@ -34,7 +36,10 @@ export default {
       }
     },
 
-    width: [String, Number]
+    sortable: {
+      type: Boolean,
+      default: false
+    }
   },
 
   mounted() {
