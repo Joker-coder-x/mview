@@ -4,16 +4,12 @@
     <h3>箭头在前面</h3>
     <m-collapse @on-change="handleOnChange" v-model="value">
       <m-collapse-panel name="a">
-        <template v-slot:default
-          >测试头</template
-        >
+        <template v-slot:default>测试头</template>
         <template v-slot:content>
           这里是内容
           <m-collapse>
             <m-collapse-panel>
-              <template v-slot:default
-                >测试头</template
-              >
+              <template v-slot:default>测试头</template>
               <template v-slot:content>
                 这里是内容
               </template>
@@ -22,17 +18,13 @@
         </template>
       </m-collapse-panel>
       <m-collapse-panel name="b">
-        <template v-slot:default
-          >测试头</template
-        >
+        <template v-slot:default>测试头</template>
         <template v-slot:content>
           这里是内容
         </template>
       </m-collapse-panel>
       <m-collapse-panel name="c">
-        <template v-slot:default
-          >测试头</template
-        >
+        <template v-slot:default>测试头</template>
         <template v-slot:content>
           这里是内容
         </template>
@@ -42,16 +34,12 @@
     <h3>箭头在后面</h3>
     <m-collapse @on-change="handleOnChange">
       <m-collapse-panel name="a" arrow-position="behind">
-        <template v-slot:default
-          >测试头</template
-        >
+        <template v-slot:default>测试头</template>
         <template v-slot:content>
           这里是内容
           <m-collapse>
             <m-collapse-panel>
-              <template v-slot:default
-                >测试头</template
-              >
+              <template v-slot:default>测试头</template>
               <template v-slot:content>
                 这里是内容
               </template>
@@ -60,17 +48,13 @@
         </template>
       </m-collapse-panel>
       <m-collapse-panel name="b" arrow-position="behind">
-        <template v-slot:default
-          >测试头</template
-        >
+        <template v-slot:default>测试头</template>
         <template v-slot:content>
           这里是内容
         </template>
       </m-collapse-panel>
       <m-collapse-panel name="c" arrow-position="behind">
-        <template v-slot:default
-          >测试头</template
-        >
+        <template v-slot:default>测试头</template>
         <template v-slot:content>
           这里是内容
         </template>
@@ -80,16 +64,12 @@
     <h3>简洁模式</h3>
     <m-collapse @on-change="handleOnChange" simple>
       <m-collapse-panel name="a" arrow-position="behind">
-        <template v-slot:default
-          >测试头</template
-        >
+        <template v-slot:default>测试头</template>
         <template v-slot:content>
           这里是内容
           <m-collapse>
             <m-collapse-panel>
-              <template v-slot:default
-                >测试头</template
-              >
+              <template v-slot:default>测试头</template>
               <template v-slot:content>
                 这里是内容
               </template>
@@ -98,17 +78,13 @@
         </template>
       </m-collapse-panel>
       <m-collapse-panel name="b" arrow-position="behind">
-        <template v-slot:default
-          >测试头</template
-        >
+        <template v-slot:default>测试头</template>
         <template v-slot:content>
           这里是内容
         </template>
       </m-collapse-panel>
       <m-collapse-panel name="c" arrow-position="behind">
-        <template v-slot:default
-          >测试头</template
-        >
+        <template v-slot:default>测试头</template>
         <template v-slot:content>
           这里是内容
         </template>
@@ -118,16 +94,12 @@
     <h3>通过设置属性accordion开启手风琴模式，每次至多只能打开一个面板。</h3>
     <m-collapse @on-change="handleOnChange" simple accordion>
       <m-collapse-panel name="a" arrow-position="behind">
-        <template v-slot:default
-          >测试头</template
-        >
+        <template v-slot:default>测试头</template>
         <template v-slot:content>
           这里是内容
           <m-collapse>
             <m-collapse-panel>
-              <template v-slot:default
-                >测试头</template
-              >
+              <template v-slot:default>测试头</template>
               <template v-slot:content>
                 这里是内容
               </template>
@@ -136,17 +108,13 @@
         </template>
       </m-collapse-panel>
       <m-collapse-panel name="b" arrow-position="behind">
-        <template v-slot:default
-          >测试头</template
-        >
+        <template v-slot:default>测试头</template>
         <template v-slot:content>
           这里是内容
         </template>
       </m-collapse-panel>
       <m-collapse-panel name="c" arrow-position="behind">
-        <template v-slot:default
-          >测试头</template
-        >
+        <template v-slot:default>测试头</template>
         <template v-slot:content>
           这里是内容
         </template>

@@ -1,4 +1,9 @@
 /**
+ * @description 什么事情都不做
+ */
+export function noop() {}
+
+/**
  * @todo 生成完善的类型检测函数
  * @param {String} type 需要生成检测函数的类型
  *        可选值 string|number|null|undefined|object|array|function|symbol|date|regexp
@@ -237,9 +242,6 @@ export function lightenDarkenColor(col, amt) {
   return (usePound ? "#" : "") + (g | (b << 8) | (r << 16)).toString(16);
 }
 
-//什么事情都不做
-export function noop() {}
-
 /**
  * @todo JSON拷贝
  * @param {*} obj
@@ -295,4 +297,43 @@ export function deepClone(src) {
   }
 
   return obj;
+}
+
+/**
+ * @description 交换数组中两个元素的位置
+ * @param {Array} arr
+ * @param {Number} indexA
+ * @param {Number} indexB
+ * @returns {Array}
+ */
+export function exchangeItemByIndexOfArray(arr, indexA, indexB) {
+  let res = arr;
+
+  if (!Array.isArray(arr)) {
+    return res;
+  }
+
+  const len = arr.length;
+
+  if (
+    indexA >= 0 &&
+    indexB >= 0 &&
+    indexA < len &&
+    indexB < len &&
+    indexA != indexB
+  ) {
+    const a = arr[indexA],
+      b = arr[indexB];
+
+    res = arr.map((item, index) => {
+      if (index == indexA) {
+        return b;
+      } else if (index == indexB) {
+        return a;
+      } else {
+        return item;
+      }
+    });
+  }
+  return res;
 }

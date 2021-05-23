@@ -13,7 +13,7 @@
       />
     </colgroup>
     <thead>
-      <tr>
+      <table-tr>
         <th v-for="item in columns" :key="item.prop">
           <table-cell
             :column="item"
@@ -21,7 +21,7 @@
           ></table-cell>
         </th>
         <th v-if="tableRoot.isShowScrollYBar"></th>
-      </tr>
+      </table-tr>
     </thead>
   </table>
 </template>
@@ -29,6 +29,7 @@
 <script>
 import { StyleMixin } from "@/mixins/index.js";
 import TableMixin from "./mixin.js";
+import TableTr from "./table-tr.vue";
 import TableCell from "./table-cell.vue";
 
 export default {
@@ -37,6 +38,7 @@ export default {
   mixins: [StyleMixin, TableMixin],
 
   components: {
+    TableTr,
     TableCell
   },
 

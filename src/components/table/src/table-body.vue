@@ -10,9 +10,10 @@
       <col v-for="col in columns" :width="setCellWidth(col)" :key="col.prop" />
     </colgroup>
     <tbody>
-      <tr
+      <table-tr
         v-for="row in data"
         :key="row.$idnex"
+        :row="row"
         :class="[row.rowClassName ? row.rowClassName : '']"
         :data-custom-row-class="row.rowClassName ? 'true' : 'false'"
       >
@@ -28,7 +29,7 @@
           >
           </table-cell>
         </td>
-      </tr>
+      </table-tr>
     </tbody>
   </table>
 </template>
@@ -39,12 +40,14 @@ import { hasOwn } from "@/utils/index.js";
 import { StyleMixin } from "@/mixins/index.js";
 import TableMixin from "./mixin.js";
 
+import TableTr from "./table-tr.vue";
 import TableCell from "./table-cell.vue";
 
 export default {
   name: "MtableBody",
 
   components: {
+    TableTr,
     TableCell
   },
 
