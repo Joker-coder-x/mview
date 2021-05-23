@@ -96,7 +96,8 @@ import {
   $on,
   $off,
   deleteProp,
-  ExportHelper
+  ExportHelper,
+  exchangeItemByIndexOfArray
 } from "@/utils/index.js";
 import { filterCsvData } from "./util.js";
 
@@ -124,7 +125,6 @@ export default {
   },
 
   props: {
-    rowClassName: Function,
     data: {
       type: Array,
       default: () => []
@@ -156,8 +156,12 @@ export default {
       type: Boolean,
       default: true
     },
-    //默认排序方式
-    defaultSort: Object
+    draggable: {
+      type: Boolean,
+      default: false
+    },
+    defaultSort: Object,
+    rowClassName: Function
   },
 
   data() {
@@ -280,7 +284,7 @@ export default {
 
     getFixedTableBodyStyle() {
       return {
-        height: this.tableBodyScrollHeight + "px"
+        height: this.tableBodyScrollHeight + 1 + "px"
       };
     },
 
@@ -315,6 +319,15 @@ export default {
       deep: true,
       handler() {
         this.makeData();
+      }
+    },
+
+    currentData: {
+      deep: true,
+      handler(val) {
+        val.forEach((row, index) => {
+          row.$index = index;
+        });
       }
     }
   },
@@ -503,7 +516,7 @@ export default {
           theadVm = refs.head,
           tbodyVm = refs.body,
           tbodyWrap = refs["body-wrap"],
-          tableWidth = elm.offsetWidth - 1,
+          tableWidth = elm ? elm.offsetWidth - 1 : 0,
           hasWidthColumns = [],
           noWidthColumns = [],
           columnsWidth = {},
@@ -600,7 +613,11 @@ export default {
       this.sortColumn = prop;
       this.sortType = "asc";
 
-      this.$emit("sort-change", { prop: prop, order: this.sortType });
+      this.$emit("sort-change", {
+        prop: prop,
+        order: this.sortType,
+        data: jsonClone(this.currentData)
+      });
     },
 
     handleSortByDesc({ prop }) {
@@ -611,7 +628,40 @@ export default {
       this.sortColumn = prop;
       this.sortType = "desc";
 
-      this.$emit("sort-change", { prop: prop, order: this.sortType });
+      this.$emit("sort-change", {
+        prop: prop,
+        order: this.sortType,
+        data: jsonClone(this.currentData)
+      });
+    },
+
+    handleRowClick(event, row) {
+      this.$emit("row-click", event, row, row ? row.$index : undefined);
+    },
+
+    handleCellClick(event, row, column) {
+      this.$emit(
+        "cell-click",
+        event,
+        jsonClone(row),
+        jsonClone(column),
+        jsonClone(this.currentData)
+      );
+    },
+
+    handleDrop(startIndex, endIndex) {
+      this.currentData = exchangeItemByIndexOfArray(
+        this.currentData,
+        startIndex,
+        endIndex
+      );
+
+      this.$emit(
+        "drag-drop",
+        startIndex,
+        endIndex,
+        jsonClone(this.currentData)
+      );
     }
   }
 };

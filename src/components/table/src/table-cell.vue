@@ -1,5 +1,9 @@
 <template>
-  <div :class="PREFIX | prefixClass" :style="getCellStyle">
+  <div
+    :class="PREFIX | prefixClass"
+    :style="getCellStyle"
+    @click="handleCellClick"
+  >
     <template v-if="renderType === RENDER_TYPE_LIST[0]">
       <span>{{ row[column.prop] }}</span>
     </template>
@@ -97,6 +101,10 @@ export default {
       orderType === "asc"
         ? tableRoot.handleSortByAsc(this.column)
         : tableRoot.handleSortByDesc(this.column);
+    },
+
+    handleCellClick(e) {
+      this.tableRoot.handleCellClick(e, this.row, this.column);
     }
   }
 };

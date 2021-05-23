@@ -1,4 +1,5 @@
 @zindex-table-fixed: 10;
+@table-border: 1px solid @border-color;
 
 .tr-hover() {
   tbody,
@@ -49,39 +50,41 @@
     table-layout: fixed;
 
     tr {
-      border-bottom: 1px solid @border-color;
+      border-bottom: @table-border;
       color: @content-color;
       font-size: 14px;
       transition: all @transition-time-quick ease-in-out;
       background-color: white;
-    }
 
-    .tr-hover();
+      &.drag-hover {
+        background-color: @tr-hover-bg-color!important;
+      }
+
+      td,
+      th {
+        box-sizing: border-box;
+        overflow: hidden;
+        word-wrap: break-word;
+        word-break: break-all;
+        white-space: pre-wrap;
+        padding: 0;
+      }
+
+      th {
+        color: @th-color;
+      }
+    }
 
     thead tr {
       background-color: @thead-bg-color;
     }
 
-    th {
-      color: @th-color;
-    }
-
-    td,
-    th {
-      overflow: hidden;
-      white-space: normal;
-      text-overflow: ellipsis;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    .tr-hover();
   }
 
   .m-table-cell {
     width: 100%;
     height: 100%;
-    overflow: hidden !important;
-    white-space: normal;
-    text-overflow: ellipsis;
 
     span:first-of-type {
       vertical-align: middle;
@@ -153,19 +156,70 @@
 }
 
 .is--border {
-  border: 1px solid @border-color;
+  border: @table-border;
+
+  tr {
+    border-top: @table-border;
+    border-bottom: $border-top;
+    td,
+    th {
+      border-left: @table-border;
+      border-right: $border-left;
+    }
+
+    td:last-of-type,
+    th:last-of-type {
+      border-right: none;
+    }
+    &[data-fixed-left*="false"] {
+      td:first-of-type,
+      th:first-of-type {
+        border-left: none;
+      }
+    }
+  }
 
   thead {
-    tr,
-    th {
+    tr {
       border-top: none;
     }
   }
 
-  td {
-    border: 1px solid @border-color;
+  .fixed-left {
+    tr {
+      td:first-of-type,
+      th:first-of-type {
+        border-left: none !important;
+      }
+    }
   }
-  th {
-    border: 1px solid @border-color;
+
+  .fixed-right {
+    tr {
+      td:last-of-type,
+      th:last-of-type {
+        border-right: none !important;
+      }
+    }
+  }
+
+  .m-table-body {
+    tr:last-of-type {
+      border-bottom: none;
+      td,
+      th {
+        border-bottom: none;
+      }
+    }
+  }
+
+  .m-table-head {
+    tr:first-of-type {
+      border-top: none;
+      td,
+      th {
+        border-top: none;
+      }
+    }
   }
 }

@@ -75,22 +75,24 @@
       通过给table 组件设置字段 text-align(默认为center)、
       vertical-align(默认为middle)可控制单元格中行内元素的对齐方式。
     </p>
+    <h3>left</h3>
     <m-table :data="data" border stripe text-align="left">
       <m-table-column prop="name" label="姓名"></m-table-column>
       <m-table-column prop="age" label="年龄"></m-table-column>
       <m-table-column prop="hobby" label="爱好"></m-table-column>
     </m-table>
+    <h3>center</h3>
     <m-table :data="data" border stripe text-align="center">
       <m-table-column prop="name" label="姓名"></m-table-column>
       <m-table-column prop="age" label="年龄"></m-table-column>
       <m-table-column prop="hobby" label="爱好"></m-table-column>
     </m-table>
+    <h3>right</h3>
     <m-table :data="data" border stripe text-align="right">
       <m-table-column prop="name" label="姓名"></m-table-column>
       <m-table-column prop="age" label="年龄"></m-table-column>
       <m-table-column prop="hobby" label="爱好"></m-table-column>
     </m-table>
-
     <h3>固定表头</h3>
     <p>
       要在m-table元素中定义了height属性，即可实现固定表头的表格，而不需要额外的代码。
@@ -222,13 +224,34 @@
       <m-table-column prop="age" label="年龄"></m-table-column>
       <m-table-column prop="hobby" label="爱好"></m-table-column>
     </m-table>
+
+    <h3>拖拽表格的某一行改变顺序</h3>
+    <p>通过给m-table组件设置 draggable 来配置。</p>
+    <m-table :data="data" border stripe draggable @cell-click="handleCellClick">
+      <m-table-column prop="name" label="姓名"></m-table-column>
+      <m-table-column prop="age" label="年龄"></m-table-column>
+      <m-table-column prop="hobby" label="爱好"></m-table-column>
+    </m-table>
+
+    <h1>API</h1>
+    <h3>Table props</h3>
+    <m-table :data="tablePropsData" border stripe text-align="left">
+      <m-table-column prop="prop" label="属性"></m-table-column>
+      <m-table-column prop="explain" label="说明" width="340"></m-table-column>
+      <m-table-column prop="type" label="类型"></m-table-column>
+      <m-table-column prop="optionalValue" label="可选值"></m-table-column>
+      <m-table-column prop="defaultValue" label="默认值"></m-table-column>
+    </m-table>
   </div>
 </template>
 
 <script>
+import { tablePropsData } from "./data.js";
+
 export default {
   data() {
     return {
+      tablePropsData,
       data: [
         {
           name: "程咬金",
@@ -619,6 +642,10 @@ export default {
       if (exportTable) {
         exportTable.exportCsv();
       }
+    },
+
+    handleCellClick(...args) {
+      console.log(args);
     }
   }
 };
