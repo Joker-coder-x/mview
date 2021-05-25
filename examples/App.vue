@@ -20,6 +20,7 @@
           <router-link to="/scroll-container" tag="li"
             >Scroll滚动容器</router-link
           >
+          <router-link to="/circle" tag="li">Circle</router-link>
         </ul>
       </m-aside>
       <m-main class="demo-main"><router-view></router-view></m-main>
@@ -35,6 +36,7 @@ export default {
 
 <style lang="less">
 @import "../src/style/index.less";
+@import "./assets/less/index.less";
 
 body,
 ul {

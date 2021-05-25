@@ -2,10 +2,12 @@ import Vue from "vue";
 import App from "./App.vue";
 import router from "./router/index.js";
 import mview from "../src/index.js";
+import DemoCard from "./component/demo-card/index.vue";
 
 Vue.config.productionTip = false;
 
 Vue.use(mview);
+Vue.component(DemoCard.name, DemoCard);
 
 //偷懒，方便 开发中使用
 // const requireComponent = require.context(

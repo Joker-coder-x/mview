@@ -33,6 +33,8 @@ const Table = () =>
   import ("../pages/table/index.vue");
 const ScrollContainer = () =>
   import ("../pages/scroll-container/index.vue");
+const Circle = () =>
+  import ("../pages/circle/index.vue");
 
 const routes = [
   //rotues
@@ -147,6 +149,13 @@ const routes = [
       title: "scroll滚动容器"
     },
     component: ScrollContainer
+  },
+  {
+    path: "/circle",
+    meta: {
+      title: "仪表盘"
+    },
+    component: Circle
   }
 ];
 

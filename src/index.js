@@ -29,6 +29,7 @@ import CollapsePanel from "./components/collapse-panel/index.js";
 import Table from "./components/table/index.js";
 import TableColumn from "./components/table-column/index.js";
 import ScrollContainer from "./components/scroll-container/index.js";
+import Circle from "./components/circle/index.js";
 
 const components = [
   BookMark,
@@ -62,7 +63,8 @@ const components = [
   CollapsePanel,
   Table,
   TableColumn,
-  ScrollContainer
+  ScrollContainer,
+  Circle
 ];
 
 const install = function(Vue) {
