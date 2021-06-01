@@ -21,6 +21,7 @@
             >Scroll滚动容器</router-link
           >
           <router-link to="/circle" tag="li">Circle</router-link>
+          <router-link to="/mind" tag="li">Mind</router-link>
         </ul>
       </m-aside>
       <m-main class="demo-main"><router-view></router-view></m-main>
