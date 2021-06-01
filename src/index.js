@@ -30,6 +30,7 @@ import Table from "./components/table/index.js";
 import TableColumn from "./components/table-column/index.js";
 import ScrollContainer from "./components/scroll-container/index.js";
 import Circle from "./components/circle/index.js";
+import Mind from "./components/mind/index.js";
 
 const components = [
   BookMark,
@@ -64,7 +65,8 @@ const components = [
   Table,
   TableColumn,
   ScrollContainer,
-  Circle
+  Circle,
+  Mind
 ];
 
 const install = function(Vue) {

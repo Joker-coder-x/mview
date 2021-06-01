@@ -13,6 +13,6 @@ module.exports = {
   rules: {
     semi: "error",
     indent: ["warn", 2, { SwitchCase: 1 }],
-    maxLen: [0, 100]
+    maxLen: [0, 150]
   }
 };

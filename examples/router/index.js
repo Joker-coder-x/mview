@@ -35,6 +35,8 @@ const ScrollContainer = () =>
   import ("../pages/scroll-container/index.vue");
 const Circle = () =>
   import ("../pages/circle/index.vue");
+const Mind = () =>
+  import ("../pages/mind/index.vue");
 
 const routes = [
   //rotues
@@ -156,6 +158,13 @@ const routes = [
       title: "仪表盘"
     },
     component: Circle
+  },
+  {
+    path: "/mind",
+    meta: {
+      title: "脑图"
+    },
+    component: Mind
   }
 ];
 
